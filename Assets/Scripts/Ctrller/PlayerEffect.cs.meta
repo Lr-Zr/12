@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: c7809e1529512d948bd1faaa5f778e45
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - RRun: {fileID: 5412758334197307327, guid: fafd1f7f4f5103c4abc8aab190ff20e5, type: 3}
+  - LRun: {fileID: 1362089324337327882, guid: 8958d1d1f0ccab0459262e2c83768a28, type: 3}
+  - RBreak: {fileID: 5834310605149056354, guid: af2b2223130befc4aacfac09d235eeb1, type: 3}
+  - LBreak: {fileID: 5571390484267842887, guid: 7017e38915d011f4da62e80fa15b6843, type: 3}
+  - BJump: {fileID: 5759784335267218263, guid: 08d9c8757b080bc40b01da05694f554a, type: 3}
+  - DJump: {fileID: 3430817766348608944, guid: 20f08c58a37595449a5374000a6c27e1, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
