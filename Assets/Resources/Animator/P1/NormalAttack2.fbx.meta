@@ -5,7 +5,7 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: NormalAttack2
+    second: C_NormalAttack2
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -36,7 +36,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: NormalAttack2
+      name: C_NormalAttack2
       takeName: Take 001
       internalID: 0
       firstFrame: 0

@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 46ad26df1e54d9540a3526d22afc5f7c
+guid: 4d322528f3e0c7d458e26608033ad80c
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: NormalAttack1
+    second: C_UpSkill
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -36,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: NormalAttack1
+      name: C_UpSkill
       takeName: Take 001
       internalID: 0
       firstFrame: 0
-      lastFrame: 14
+      lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -59,21 +59,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.17673188
-        functionName: AtkEvent
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
-        floatParameter: 0
-        intParameter: 6
-        messageOptions: 0
-      - time: 0.4950611
-        functionName: AtkEvent
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
-        floatParameter: 0
-        intParameter: 7
-        messageOptions: 0
+      events: []
       transformMask:
       - path: 
         weight: 1

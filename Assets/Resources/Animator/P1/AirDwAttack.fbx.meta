@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: dd01e40b138750a48804446179786a6f
+guid: 102a6fa2865154f4a8dea8cddd71da13
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: RunAttack
+    second: C_AirDwAttack
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -36,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: RunAttack
+      name: C_AirDwAttack
       takeName: Take 001
       internalID: 0
       firstFrame: 0
-      lastFrame: 20
+      lastFrame: 28
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

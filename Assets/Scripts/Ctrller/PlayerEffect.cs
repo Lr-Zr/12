@@ -70,7 +70,7 @@ namespace nara
                 case 5:
                     break;
                 case 6:
-
+                    Debug.Log("여기까지왜와?");
                     _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     atkgo[type] = Instantiate(_AtkEffects[type], _Pos, Quaternion.identity);
                     Destroy(atkgo[type], _EffAliveTime);
@@ -98,6 +98,7 @@ namespace nara
                 if (child.name=="EffectPos")
                 {
                     _AtkPos = child;
+                    
                 }
 
                 // 자식 오브젝트의 자식들을 검색하기 위해 재귀 호출

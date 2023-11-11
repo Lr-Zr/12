@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: c501181c61e01134682de614d4109418
+guid: 6df7d4b7a755c474092ccbfb9175321b
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: NormalAttack3
+    second: C_RLSkill
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -36,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: NormalAttack3
+      name: C_RLSkill
       takeName: Take 001
       internalID: 0
       firstFrame: 0
-      lastFrame: 18
+      lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

@@ -37,14 +37,10 @@ namespace nara
 
     public enum AtkEffect1
     {
-        Normal,//0
-        AirNormal,//1
-        Down,//2
-        AirDown,//3
-        Run,//4
-        Fwd,//5
-        Up1,//6
-        Up2,//7
+        Normal1,//0
+        Normal2,//1
+        Normal3,//2
+    
         End
 
     }

@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 6b8592769cb903446a520aeebd5a700d
+guid: 5a4fea0927f44d444990d797905d9065
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: DownAttack
+    second: C_DwAttack
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -36,18 +36,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: DownAttack
+      name: C_DwAttack
       takeName: Take 001
       internalID: 0
       firstFrame: 0
-      lastFrame: 18
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -161,7 +161,7 @@ ModelImporter:
         weight: 1
       maskType: 1
       maskSource: {fileID: 31900000, guid: 0a2d610c66cc08b4492b8b3de93fdbde, type: 2}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 16
     isReadable: 0
   meshes:
     lODScreenPercentages: []
