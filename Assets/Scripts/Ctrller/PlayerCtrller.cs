@@ -52,9 +52,6 @@ namespace nara
         [SerializeField]
         float _SlideTime = 0.25f;
 
-        [SerializeField]
-        float _AtkStopTime = 0.25f;
-
         //파워
         [SerializeField]
         public Vector3 _Power;
@@ -123,11 +120,12 @@ namespace nara
             _Floortime += Time.deltaTime;
 
             //공격을 한 이후 공격 판정이 꺼지는 시간
-            _AttackTime += Time.deltaTime;
-            if (_AttackTime > _AtkStopTime)
+            _AttackTime -= Time.deltaTime;
+            if (_AttackTime < 0.0f)
             {
                 _IsAttack = false;
                 _Anim.SetIsAttack(_IsAttack);
+                _AttackTime = 0f;
             }
 
             //커맨드 키입력
@@ -158,7 +156,7 @@ namespace nara
 
 
             _Anim.SetIsRunning(_IsRunning);
-            if (_State != PlayerState.Running && !_IsOnesec )
+            if (_State != PlayerState.Running && !_IsOnesec)
             {
                 if (!_IsJump)
                     _RunTime = 0.0f;
@@ -195,6 +193,7 @@ namespace nara
         {
             //if (!_Pv.IsMine) return;
 
+            /* 상하 입력 */
             if (Input.GetKey(KeyCode.DownArrow))//조합기 하 및 하강 속도 향상
             {
 
@@ -212,45 +211,14 @@ namespace nara
 
             }
 
-
+            /* 이동 입력 */
             if (Input.GetKey(KeyCode.LeftArrow))//좌 이동
             {
-                /*이동 및 방향전환*/
-
-                /* 땅에서 달릴 때 */
-
-
-                _IsRunning = true;
-                _RunTime += Time.deltaTime;
-                dir = -1;
-
-                if (!_IsJump)
-                {
-                    SetState(PlayerState.Running);
-                    _Eff.EffectPlay(Effect.LRun);
-                }
-
                 Move(-1);
-
             }
             if (Input.GetKey(KeyCode.RightArrow))//우 이동
             {
-
-                /* 땅에서 달릴 때 */
-                _IsRunning = true;
-                _RunTime += Time.deltaTime;
-                Debug.Log("누르고 있잖아 " + _RunTime);
-                dir = 1;
-
-                if (!_IsJump)
-                {
-                    SetState(PlayerState.Running);
-                    _Eff.EffectPlay(Effect.RRun);
-                }
-
-                /*이동 및 방향전환*/
                 Move(1);
-
             }
 
 
@@ -279,26 +247,15 @@ namespace nara
 
 
 
-
-
-
             /* 점프 */
             if (Input.GetKey(KeyCode.Space))
             {
                 Jump();
 
             }
-
-
-
-
-
-
-
-
-
-
         }
+
+
 
 
         void Jump()
@@ -306,8 +263,8 @@ namespace nara
             if (_IsAttack) return;
             _RunTime = 0;
             _IsOnesec = false;
-            
-            
+
+
             if (!_IsJump && _State != PlayerState.Falling)
             {
                 _Rigid.velocity = Vector3.zero;
@@ -346,11 +303,24 @@ namespace nara
         {
 
             if (_IsAttack) return;
+            _IsRunning = true;
+            _RunTime += Time.deltaTime;
             if (!_IsJump)
             {
                 if (dir == 0) return;
                 this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
                 this.transform.position += transform.forward * _MoveSpeed * Time.deltaTime;
+
+                if (dir > 0)
+                {
+                    SetState(PlayerState.Running);
+                    _Eff.EffectPlay(Effect.RRun);
+                }
+                else
+                {
+                    SetState(PlayerState.Running);
+                    _Eff.EffectPlay(Effect.LRun);
+                }
             }
             else
             {
@@ -377,7 +347,6 @@ namespace nara
             if (_IsOnesec && !_IsJump)//탄성 효과
             {
                 _RunTime -= Time.deltaTime;
-                Debug.Log("이거할일없지?");
                 if (_RunTime > _RunRestriction - _SlideTime)
                 {
                     //Debug.Log("이동");
@@ -407,6 +376,7 @@ namespace nara
 
         void Attack()
         {
+            float time = 0.0f;
             if (_IsKeyDown && !_IsAttack)//아래키를 누르고
             {
                 if (_IsJump)//점프상태일때
@@ -421,7 +391,9 @@ namespace nara
             else if (_IsKeyUp && !_IsAttack) //위키를 누른상태
             {
                 //위공격
+
                 SetState(PlayerState.UpAttack);//1.67
+                time = 1.67f;
 
             }
             else//아래, 위키입력 없는 상태
@@ -460,7 +432,8 @@ namespace nara
 
             if (!_IsAttack)
             {
-                _AttackTime = 0;
+
+                _AttackTime = time;
                 _Anim.TriggerAtk();
                 _IsAttack = true;
                 _Anim.SetIsAttack(_IsAttack);
