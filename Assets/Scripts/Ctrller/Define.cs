@@ -16,9 +16,16 @@ namespace nara
             Falling,//4
             Floating,//5
             Die,//6
-            Attack,//7
-            KnockOut,//8
-            Stun,//9
+            NormalAttack,//7
+            UpAttack,//8
+            DwAttack,//9
+            AirNormalAttack,//10
+            AirDwAttack,//11
+            RLAttack,//12
+            RunAttack,//13
+            KnockOut,//14
+            Stun,//15
+            End,
 
         }
 
@@ -40,7 +47,8 @@ namespace nara
         Normal1,//0
         Normal2,//1
         Normal3,//2
-    
+        UpAttack,//4
+
         End
 
     }

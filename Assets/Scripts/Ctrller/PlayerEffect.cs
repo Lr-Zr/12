@@ -35,7 +35,7 @@ namespace nara
             SearchInChildren(this.transform);
         }
 
-        public void EffectPlay(Effect effect, float time = 1.0f)
+        public void EffectPlay(Effect effect, float time = 0.5f)
         {
             if (go[(int)effect] != null) return;
             _Pos = this.transform.position + _Effects[(int)effect].transform.position;
@@ -46,7 +46,7 @@ namespace nara
         }
 
 
-        public void AtkEvent(int type)
+        public void onEffects(int type)
         {
            //공격을 하잖아 그럼 생존시간 이펙트
             Debug.Log("실행됬나?");
@@ -70,7 +70,6 @@ namespace nara
                 case 5:
                     break;
                 case 6:
-                    Debug.Log("여기까지왜와?");
                     _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     atkgo[type] = Instantiate(_AtkEffects[type], _Pos, Quaternion.identity);
                     Destroy(atkgo[type], _EffAliveTime);

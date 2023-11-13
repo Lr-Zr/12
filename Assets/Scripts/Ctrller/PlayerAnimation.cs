@@ -36,6 +36,23 @@ namespace nara
         public void TriggerAtk()
         {
             _animator.SetTrigger("Attack");
+           
+        }
+        public void TriggerReset()
+        {
+            _animator.ResetTrigger("Attack");
+        }
+        
+
+        public void SetIsUpKey(bool isUpKey)
+        {
+
+            _animator.SetBool("UpKey", isUpKey);
+        }
+        public void SetIsDwKey(bool isDwKey)
+        {
+
+            _animator.SetBool("DwKey", isDwKey);
         }
 
     }

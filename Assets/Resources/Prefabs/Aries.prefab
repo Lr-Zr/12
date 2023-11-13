@@ -31,6 +31,116 @@ Transform:
   m_Father: {fileID: 2902850679603903496}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1482726494
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1482726495}
+  m_Layer: 9
+  m_Name: NormalAtk
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1482726495
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482726494}
+  m_LocalRotation: {x: -0, y: -0.00000017881389, z: -0.00000004214684, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2004634024}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2004634023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2004634024}
+  m_Layer: 9
+  m_Name: Colliders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2004634024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004634023}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2104551101}
+  - {fileID: 1482726495}
+  m_Father: {fileID: 2902850679603903496}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2104551100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2104551101}
+  - component: {fileID: 2104551102}
+  m_Layer: 9
+  m_Name: UpAtk
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2104551101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104551100}
+  m_LocalRotation: {x: -0, y: -0.0000003576277, z: -0.00000004214683, w: 1}
+  m_LocalPosition: {x: 0, y: 1.0069997, z: 0}
+  m_LocalScale: {x: 1.5, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2004634024}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &2104551102
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104551100}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &485985760608631755
 GameObject:
   m_ObjectHideFlags: 0
@@ -47,8 +157,9 @@ GameObject:
   - component: {fileID: 1579784737}
   - component: {fileID: 7270706764737177180}
   - component: {fileID: 544382363}
+  - component: {fileID: 1905842904}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Aries
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,12 +252,11 @@ MonoBehaviour:
   _DownSpeed: 5
   _JumpRestriction: 0.25
   _RunRestriction: 1
-  _AttackRestriction: 0.75
   _SlideTime: 0.5
-  _AtkStopTime: 0.25
-  _Power:
-  - {x: 0, y: 0, z: 0}
+  _AtkStopTime: 1
+  _Power: {x: 0, y: 0, z: 0}
   _RunTime: 0
+  _AttackTime: 0.5
 --- !u!114 &1579784737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,8 +292,8 @@ MonoBehaviour:
   - {fileID: 6892753433165742188, guid: 065172db0871c5a47a7cfabac36f890a, type: 3}
   - {fileID: 6892753433165742188, guid: 065172db0871c5a47a7cfabac36f890a, type: 3}
   _AtkEffects:
-  - {fileID: 3630683408801389860, guid: 44d8da2c330e98646bcaca1f6c97504c, type: 3}
-  - {fileID: 1119143585881920503, guid: 4f78aef28a557074a8162a55adaf1b07, type: 3}
+  - {fileID: 1237264464613774, guid: d887bb39ee8b0b1488795541a6493283, type: 3}
+  - {fileID: 8884063058530287351, guid: 89082f85830886742bb6582ae7e92bbc, type: 3}
   - {fileID: 4196192098934428334, guid: 6767d968f0afef745b557abb205378b6, type: 3}
   - {fileID: 365474304295561015, guid: 830b51873099e1f428468d286175f762, type: 3}
   - {fileID: 3344759952172689703, guid: 1e139fa8aa37f504e92d0e9b4f812e5f, type: 3}
@@ -202,6 +312,30 @@ ConstantForce:
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
+--- !u!114 &1905842904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485985760608631755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Collider:
+  - {fileID: 2104551100}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1001 &3500256498162691987
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -211,7 +345,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4864623752838631193, guid: a89111c3d5e9c2a498c508b69cd4d87e, type: 3}
       propertyPath: m_Name
-      value: Aries
+      value: Model
       objectReference: {fileID: 0}
     - target: {fileID: 5244808088588883363, guid: a89111c3d5e9c2a498c508b69cd4d87e, type: 3}
       propertyPath: m_RootOrder
