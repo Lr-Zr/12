@@ -45,7 +45,7 @@ namespace nara
 
         }
 
-
+        //공격 관련 이펙트
         public void onEffects(int type)
         {
            //공격을 하잖아 그럼 생존시간 이펙트
@@ -70,10 +70,7 @@ namespace nara
                 case 5:
                     break;
                 case 6:
-                    _Pos = this.transform.position + _AtkEffects[type].transform.position;
-                    atkgo[type] = Instantiate(_AtkEffects[type], _Pos, Quaternion.identity);
-                    Destroy(atkgo[type], _EffAliveTime);
-                    return;
+                   
                     break;
                 case 7:
                     break;
@@ -83,6 +80,9 @@ namespace nara
                     break;
 
             }
+            _Pos = this.transform.position + _AtkEffects[type].transform.position;
+            atkgo[type] = Instantiate(_AtkEffects[type], _Pos, Quaternion.identity);
+           
             atkgo[type] = Instantiate(_AtkEffects[type], _AtkPos.position, Quaternion.identity);
             Destroy(atkgo[type], _EffAliveTime);
             Debug.Log("끝났나?");

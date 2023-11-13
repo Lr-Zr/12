@@ -44,13 +44,15 @@ namespace nara
 
     public enum AtkEffect1
     {
-        Normal1,//0
-        Normal2,//1
-        Normal3,//2
-        UpAttack,//4
+        
+        UpAttack1,//1
+        UpAttack2,//2
+
 
         End
 
     }
+
+
 
 }

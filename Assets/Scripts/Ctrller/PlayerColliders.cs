@@ -36,7 +36,7 @@ namespace nara
             switch (atk)
             {
                 case 0://Up
-                    _playerCtrller._Power = new Vector3(0, 0, 0);
+                    _playerCtrller._Power = new Vector3(0, 20, 0);
                     _Collider[atk].SetActive(true);
                     break;
                 case 1:

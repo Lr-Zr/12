@@ -54,7 +54,10 @@ namespace nara
 
         //ÆÄ¿ö
         [SerializeField]
-        public Vector3 _Power;
+        public Vector3 _Power=Vector3.zero;
+
+        [SerializeField]
+        public float Dmg=0.0f; 
 
 
 
