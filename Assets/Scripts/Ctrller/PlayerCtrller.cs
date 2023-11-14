@@ -57,32 +57,31 @@ namespace nara
         public Vector3 _Power=Vector3.zero;
 
         [SerializeField]
-        public float Dmg=0.0f; 
+        public float Dmg=0.0f;
 
-
+        //전진공격 스피드
+        [SerializeField]
+        float RLspeed = 1000f;
 
 
         Rigidbody _Rigid;
         PlayerAnimation _Anim;
         PlayerEffect _Eff;
         PlayerState _State;
-        //방향 좌우 move함수용
-        int dir;
+        //방향 좌우 move함수용 및 이펙트 방향 변환
+        public int dir;
         //time
         public float _RunTime = 0.0f;
         float _JumpTime = 0.3f;
         float _Floortime = 0.0f;//
-        public float _AttackTime = 0.5f;
 
 
-        bool _IsAttack;
+        public bool _IsAttack;
         bool _IsJump;
         bool _IsDJump;
         bool _IsOnesec;//질주 공격 
-        bool _IsDashAtk;
         bool _IsRunning;
-        bool _Stop;
-        bool _IsMoving;
+  
 
         //keydown time;
         float _KDwTime = 0f;
@@ -96,7 +95,7 @@ namespace nara
         Vector3 _PrePos;
         void Start()
         {
-
+            
             _Rigid = GetComponent<Rigidbody>();
             _Anim = GetComponent<PlayerAnimation>();
             _Eff = GetComponent<PlayerEffect>();
@@ -110,26 +109,20 @@ namespace nara
             _IsRunning = false;
             _IsKeyDown = false;
             _IsKeyUp = false;
-
             _IsAttack = false;
-            _IsMoving = false;
 
 
         }
 
         private void FixedUpdate()
         {
+            Debug.Log("ㅇㅇ" + dir);
             //달리다가 멈추는 조건
             _Floortime += Time.deltaTime;
 
-            //공격을 한 이후 공격 판정이 꺼지는 시간
-            _AttackTime -= Time.deltaTime;
-            if (_AttackTime < 0.0f)
-            {
-                _IsAttack = false;
-                _Anim.SetIsAttack(_IsAttack);
-                _AttackTime = 0f;
-            }
+           
+            //if (_AttackTime < 0.0f)
+          
 
             //커맨드 키입력
             _KUpTime -= Time.deltaTime;
@@ -159,7 +152,7 @@ namespace nara
 
 
             _Anim.SetIsRunning(_IsRunning);
-            if (_State != PlayerState.Running && !_IsOnesec)
+            if (_State != PlayerState.Running &&!_IsAttack &&!_IsOnesec)
             {
                 if (!_IsJump)
                     _RunTime = 0.0f;
@@ -217,11 +210,13 @@ namespace nara
             /* 이동 입력 */
             if (Input.GetKey(KeyCode.LeftArrow))//좌 이동
             {
-                Move(-1);
+                dir = -1;
+                Move(dir);
             }
             if (Input.GetKey(KeyCode.RightArrow))//우 이동
             {
-                Move(1);
+                dir = 1;
+                Move(dir);
             }
 
 
@@ -296,9 +291,6 @@ namespace nara
             }
 
         }
-
-
-
 
 
 
@@ -396,7 +388,7 @@ namespace nara
                 //위공격
 
                 SetState(PlayerState.UpAttack);//1.67
-                time = 1.67f;
+               
 
             }
             else//아래, 위키입력 없는 상태
@@ -414,10 +406,14 @@ namespace nara
                         if (_IsOnesec)//1초지난상태
                         {
                             //질주공격
+                            return;
                         }
                         else
                         {
                             //전진공격
+                            SetState(PlayerState.RLAttack);
+                           
+                            Debug.Log("전진공격");
                         }
                     }
                     else
@@ -436,12 +432,19 @@ namespace nara
             if (!_IsAttack)
             {
 
-                _AttackTime = time;
                 _Anim.TriggerAtk();
                 _IsAttack = true;
                 _Anim.SetIsAttack(_IsAttack);
 
             }
+        }
+
+        public void setisAttack()
+        {
+            
+                _IsAttack = false;
+                _Anim.SetIsAttack(_IsAttack);
+              
         }
         void OnFloor()
         {
@@ -482,7 +485,18 @@ namespace nara
 
 
 
+        public void onRLMove()
+        {
+            _Rigid.AddForce(this.transform.forward * RLspeed);
+        }
+
+
     }
+
+
+
+
+
 }
 
 

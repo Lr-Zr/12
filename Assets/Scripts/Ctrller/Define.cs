@@ -47,6 +47,8 @@ namespace nara
         
         UpAttack1,//1
         UpAttack2,//2
+        RLAttack1,//3
+        RLAttack2,//4
 
 
         End

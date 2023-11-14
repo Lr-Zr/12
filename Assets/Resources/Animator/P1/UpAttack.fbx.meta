@@ -67,14 +67,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.41659915
+      - time: 0.4185813
         functionName: onEffects
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.42258134
+      - time: 0.42654568
         functionName: ActiveOn
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
@@ -85,6 +85,13 @@ ModelImporter:
         functionName: ActiveOff
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: setisAttack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: aba1b158b6a106c48bf2a2887b0f0559, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

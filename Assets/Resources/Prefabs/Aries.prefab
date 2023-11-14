@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &913742949
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 913742950}
+  - component: {fileID: 913742951}
+  m_Layer: 9
+  m_Name: RLAtk
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &913742950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913742949}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.53, z: -0}
+  m_LocalScale: {x: 0.94641227, y: 1.1702541, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2004634024}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &913742951
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913742949}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1076969944
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1076969945}
   m_Layer: 0
-  m_Name: EffectPos
+  m_Name: TipofSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,8 +138,40 @@ Transform:
   m_Children:
   - {fileID: 2104551101}
   - {fileID: 1482726495}
+  - {fileID: 913742950}
   m_Father: {fileID: 2902850679603903496}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2100059690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2100059691}
+  m_Layer: 0
+  m_Name: MidofSword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2100059691
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100059690}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.386, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2902850679603903496}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2104551100
 GameObject:
@@ -253,10 +331,11 @@ MonoBehaviour:
   _JumpRestriction: 0.25
   _RunRestriction: 1
   _SlideTime: 0.5
-  _AtkStopTime: 1
   _Power: {x: 0, y: 0, z: 0}
+  Dmg: 0
+  dir: 0
   _RunTime: 0
-  _AttackTime: 0.5
+  _IsAttack: 0
 --- !u!114 &1579784737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,8 +373,8 @@ MonoBehaviour:
   _AtkEffects:
   - {fileID: 1237264464613774, guid: d887bb39ee8b0b1488795541a6493283, type: 3}
   - {fileID: 8884063058530287351, guid: 89082f85830886742bb6582ae7e92bbc, type: 3}
-  - {fileID: 4196192098934428334, guid: 6767d968f0afef745b557abb205378b6, type: 3}
-  - {fileID: 365474304295561015, guid: 830b51873099e1f428468d286175f762, type: 3}
+  - {fileID: 1237264464613774, guid: de659d0163863c84f82003a2d0ae33e1, type: 3}
+  - {fileID: 1295943409540678, guid: 2d24e256a2f1a614bbade9b1d0d87b10, type: 3}
   - {fileID: 3344759952172689703, guid: 1e139fa8aa37f504e92d0e9b4f812e5f, type: 3}
   - {fileID: 611449316258724689, guid: 9cdc28e7e6dcdbc43882809e0c75390b, type: 3}
   - {fileID: 2457608973815445994, guid: 6d8b7353521e5ee4eb59cc2d915f556e, type: 3}
