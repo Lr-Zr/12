@@ -54,10 +54,10 @@ namespace nara
 
         //파워
         [SerializeField]
-        public Vector3 _Power=Vector3.zero;
+        public Vector3 _Power = Vector3.zero;
 
         [SerializeField]
-        public float Dmg=0.0f;
+        public float Dmg = 0.0f;
 
         //전진공격 스피드
         [SerializeField]
@@ -76,12 +76,14 @@ namespace nara
         float _Floortime = 0.0f;//
 
 
+
         public bool _IsAttack;
         bool _IsJump;
         bool _IsDJump;
         bool _IsOnesec;//질주 공격 
         bool _IsRunning;
-  
+
+        public bool _IsRLMove;//전진공격
 
         //keydown time;
         float _KDwTime = 0f;
@@ -91,11 +93,12 @@ namespace nara
         bool _IsKeyDown;
         bool _IsKeyUp;
 
-
+        //거리 측정용 
+        Vector3 _RLMovePos;
         Vector3 _PrePos;
         void Start()
         {
-            
+
             _Rigid = GetComponent<Rigidbody>();
             _Anim = GetComponent<PlayerAnimation>();
             _Eff = GetComponent<PlayerEffect>();
@@ -110,8 +113,7 @@ namespace nara
             _IsKeyDown = false;
             _IsKeyUp = false;
             _IsAttack = false;
-
-
+            _IsRLMove = false;
         }
 
         private void FixedUpdate()
@@ -120,9 +122,16 @@ namespace nara
             //달리다가 멈추는 조건
             _Floortime += Time.deltaTime;
 
-           
-            //if (_AttackTime < 0.0f)
-          
+            if (_IsRLMove)//거리가 어느이상되면 멈춘다.
+            {
+                float x = Vector3.Distance(_PrePos, _RLMovePos);
+                _Rigid.AddForce(this.transform.forward * RLspeed,ForceMode.Force);
+                if(x>=3.0f)
+                {
+                    _IsRLMove = false;
+                }
+               // Debug.Log("여기 안에서 여러번 실행 됨");
+            }
 
             //커맨드 키입력
             _KUpTime -= Time.deltaTime;
@@ -152,7 +161,7 @@ namespace nara
 
 
             _Anim.SetIsRunning(_IsRunning);
-            if (_State != PlayerState.Running &&!_IsAttack &&!_IsOnesec)
+            if (_State != PlayerState.Running && !_IsAttack && !_IsOnesec)
             {
                 if (!_IsJump)
                     _RunTime = 0.0f;
@@ -179,11 +188,10 @@ namespace nara
             //브레이킹 부분
             Breaking();
 
-
         }
         private void LateUpdate()
         {
-
+            //_Eff.EffectPlay(Effect.Test);
         }
         void OnKeyboard()
         {
@@ -388,7 +396,7 @@ namespace nara
                 //위공격
 
                 SetState(PlayerState.UpAttack);//1.67
-               
+
 
             }
             else//아래, 위키입력 없는 상태
@@ -412,7 +420,7 @@ namespace nara
                         {
                             //전진공격
                             SetState(PlayerState.RLAttack);
-                           
+
                             Debug.Log("전진공격");
                         }
                     }
@@ -441,10 +449,11 @@ namespace nara
 
         public void setisAttack()
         {
-            
-                _IsAttack = false;
-                _Anim.SetIsAttack(_IsAttack);
-              
+
+            _IsAttack = false;
+            _Anim.SetIsAttack(_IsAttack);
+            _IsRLMove = false;
+
         }
         void OnFloor()
         {
@@ -487,7 +496,9 @@ namespace nara
 
         public void onRLMove()
         {
-            _Rigid.AddForce(this.transform.forward * RLspeed);
+            _IsRLMove = true;
+            _RLMovePos = this.transform.position;
+            Debug.Log("이거 1번만 실행됨");
         }
 
 

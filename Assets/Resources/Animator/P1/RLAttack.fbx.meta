@@ -61,39 +61,53 @@ ModelImporter:
       curves: []
       events:
       - time: 0.14760914
-        functionName: onEffects
+        functionName: EffectOn
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
+      - time: 0.42661273
+        functionName: EffectOff
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
       - time: 0.5026066
-        functionName: onEffects
+        functionName: EffectOn
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
         floatParameter: 0
         intParameter: 3
         messageOptions: 0
-      - time: 0.5043157
+      - time: 0.5028028
         functionName: onRLMove
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: aba1b158b6a106c48bf2a2887b0f0559, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.5053998
+      - time: 0.5031305
         functionName: ActiveOn
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.7459458
+      - time: 0.79208803
         functionName: ActiveOff
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
         floatParameter: 0
         intParameter: 1
+        messageOptions: 0
+      - time: 0.79476005
+        functionName: EffectOff
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
+        floatParameter: 0
+        intParameter: 3
         messageOptions: 0
       - time: 1
         functionName: setisAttack

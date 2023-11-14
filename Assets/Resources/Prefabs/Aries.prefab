@@ -333,9 +333,11 @@ MonoBehaviour:
   _SlideTime: 0.5
   _Power: {x: 0, y: 0, z: 0}
   Dmg: 0
+  RLspeed: 1000
   dir: 0
   _RunTime: 0
   _IsAttack: 0
+  _IsRLMove: 0
 --- !u!114 &1579784737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,7 +371,7 @@ MonoBehaviour:
   - {fileID: 2959625264892343690, guid: 0fcd19cc80941fc46b57ad4135836d22, type: 3}
   - {fileID: 3430817766348608944, guid: 20f08c58a37595449a5374000a6c27e1, type: 3}
   - {fileID: 6892753433165742188, guid: 065172db0871c5a47a7cfabac36f890a, type: 3}
-  - {fileID: 6892753433165742188, guid: 065172db0871c5a47a7cfabac36f890a, type: 3}
+  - {fileID: 1014011059874384, guid: cb5857a9a6c455344b70871eb5651549, type: 3}
   _AtkEffects:
   - {fileID: 1237264464613774, guid: d887bb39ee8b0b1488795541a6493283, type: 3}
   - {fileID: 8884063058530287351, guid: 89082f85830886742bb6582ae7e92bbc, type: 3}
@@ -405,7 +407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Collider:
   - {fileID: 2104551100}
-  - {fileID: 0}
+  - {fileID: 913742949}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

@@ -30,10 +30,9 @@ namespace nara
 
 
         PlayerCtrller _playerCtrller;
-        float _EffAliveTime;
+     
         void Start()
         {
-            _EffAliveTime = 0.5f;
             go = new GameObject[(int)Effect.End];
             atkgo = new GameObject[(int)AtkEffect1.End];
             SearchInChildren(this.transform);
@@ -42,7 +41,7 @@ namespace nara
 
         public void EffectPlay(Effect effect, float time = 0.5f)
         {
-            if (go[(int)effect] != null) return;
+            //if (go[(int)effect] != null) return;
             _Pos = this.transform.position + _Effects[(int)effect].transform.position;
 
             go[(int)effect] = Instantiate(_Effects[(int)effect], _Pos, Quaternion.identity);
@@ -51,7 +50,7 @@ namespace nara
         }
 
         //공격 관련 이펙트
-        public void onEffects(int type)
+        public void EffectOn(int type)
         {
             //공격을 하잖아 그럼 생존시간 이펙트
             Debug.Log("실행됬나?");
@@ -63,14 +62,12 @@ namespace nara
             {
                 case 0://up1
                     _Pos = this.transform.position + _AtkEffects[type].transform.position; //캐릭터위치 + 이펙트가 가지고 있는 포지션
-                    _EffAliveTime = 0.1f;
 
                     break;
                 case 1://up2
-                    _EffAliveTime = 0.9f;
                     break;
                 case 2://RL1
-                    _EffAliveTime = 0.1f;
+                    _Pos = this.transform.position + _AtkEffects[type].transform.position; //캐릭터위치 + 이펙트가 가지고 있는 포지션
                     break;
                 case 3://RL2
                     if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
@@ -84,7 +81,6 @@ namespace nara
                         _AtkEffects[type].transform.localScale = new Vector3(-1, 1, 1); ;
                     }
 
-                    _EffAliveTime = 0.4f;
                     break;
                 case 4:
                     break;
@@ -103,10 +99,12 @@ namespace nara
             }
 
             atkgo[type] = Instantiate(_AtkEffects[type], _Pos, Quaternion.identity);
-            Destroy(atkgo[type], _EffAliveTime);
             Debug.Log("이펙트 onEffects");
         }
-
+        public void EffectOff(int type)
+        {           
+            Destroy(atkgo[type]);
+        }
 
         void SearchInChildren(Transform parent)
         {

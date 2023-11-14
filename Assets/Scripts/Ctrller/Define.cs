@@ -39,6 +39,7 @@ namespace nara
         LJump,
         DJump,
         Land,
+        Test,
         End
     }
 
@@ -51,7 +52,7 @@ namespace nara
         RLAttack2,//4
 
 
-        End
+        End,
 
     }
 

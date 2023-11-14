@@ -67,7 +67,7 @@ namespace nara
         public void ActiveOff(int atk)
         {
             _Collider[atk].SetActive(false);
-            Debug.Log("왜 이거 안해?");
+       
         }
     }
 

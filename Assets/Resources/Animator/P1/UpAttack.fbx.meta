@@ -61,32 +61,46 @@ ModelImporter:
       curves: []
       events:
       - time: 0.11700555
-        functionName: onEffects
+        functionName: EffectOn
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.3252212
+        functionName: EffectOff
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.4185813
-        functionName: onEffects
+        functionName: EffectOn
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.42654568
+      - time: 0.42075974
         functionName: ActiveOn
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.7837677
+      - time: 0.7885893
         functionName: ActiveOff
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
         floatParameter: 0
         intParameter: 0
+        messageOptions: 0
+      - time: 0.7953395
+        functionName: EffectOff
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
+        floatParameter: 0
+        intParameter: 1
         messageOptions: 0
       - time: 1
         functionName: setisAttack
