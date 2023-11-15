@@ -47,7 +47,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -59,7 +59,56 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.14781553
+        functionName: EffectOn
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
+        floatParameter: 0
+        intParameter: 4
+        messageOptions: 0
+      - time: 0.36189318
+        functionName: EffectOff
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
+        floatParameter: 0
+        intParameter: 4
+        messageOptions: 0
+      - time: 0.45364073
+        functionName: EffectOn
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
+        floatParameter: 0
+        intParameter: 5
+        messageOptions: 0
+      - time: 0.4548768
+        functionName: ActiveOn
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
+      - time: 0.73398054
+        functionName: EffectOff
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
+        floatParameter: 0
+        intParameter: 5
+        messageOptions: 0
+      - time: 0.73398054
+        functionName: ActiveOff
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
+      - time: 1
+        functionName: setisAttack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: aba1b158b6a106c48bf2a2887b0f0559, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

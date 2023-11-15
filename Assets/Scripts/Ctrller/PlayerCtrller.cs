@@ -7,6 +7,7 @@ using UnityEngine.Playables;
 using System.IO.IsolatedStorage;
 using UnityEditor.Build;
 using UnityEditor.Experimental.GraphView;
+using JetBrains.Annotations;
 
 namespace nara
 {
@@ -70,6 +71,7 @@ namespace nara
         PlayerState _State;
         //방향 좌우 move함수용 및 이펙트 방향 변환
         public int dir;
+        public int airdir;
         //time
         public float _RunTime = 0.0f;
         float _JumpTime = 0.3f;
@@ -83,8 +85,10 @@ namespace nara
         bool _IsOnesec;//질주 공격 
         bool _IsRunning;
 
-        public bool _IsRLMove;//전진공격
 
+        /* 공격 스킬 관련 변수 */
+        public bool _IsRLMove;//전진공격 이동시작
+        public bool _IsAirAtk;//중력0으로
         //keydown time;
         float _KDwTime = 0f;
         float _KUpTime = 0f;
@@ -114,6 +118,7 @@ namespace nara
             _IsKeyUp = false;
             _IsAttack = false;
             _IsRLMove = false;
+            _IsAirAtk = false;
         }
 
         private void FixedUpdate()
@@ -122,16 +127,16 @@ namespace nara
             //달리다가 멈추는 조건
             _Floortime += Time.deltaTime;
 
+
+            if (_IsAirAtk && _IsJump)
+                _Rigid.velocity = Vector3.zero;
+
             if (_IsRLMove)//거리가 어느이상되면 멈춘다.
             {
                 float x = Vector3.Distance(_PrePos, _RLMovePos);
-                _Rigid.AddForce(this.transform.forward * RLspeed,ForceMode.Force);
-                if(x>=3.0f)
-                {
-                    _IsRLMove = false;
-                }
-               // Debug.Log("여기 안에서 여러번 실행 됨");
+                _Rigid.AddForce(this.transform.forward * RLspeed, ForceMode.Force);
             }
+
 
             //커맨드 키입력
             _KUpTime -= Time.deltaTime;
@@ -157,23 +162,18 @@ namespace nara
 
             if (_RunTime > 0) _IsRunning = true;
             else _IsRunning = false;
-
-
-
             _Anim.SetIsRunning(_IsRunning);
+
+
+            //Runtime 초기화;
             if (_State != PlayerState.Running && !_IsAttack && !_IsOnesec)
             {
-                if (!_IsJump)
-                    _RunTime = 0.0f;
-                else
-                    _RunTime = 0.1f;
+                _RunTime = 0.0f;
             }
 
 
-
-
             //낙하상태 
-            if (_Rigid.velocity.y < -0.05f && _IsJump)//낙하
+            if (_Rigid.velocity.y < -0.05f && _IsJump && !_IsAttack)//낙하
             {
                 SetState(PlayerState.Falling);
 
@@ -218,13 +218,17 @@ namespace nara
             /* 이동 입력 */
             if (Input.GetKey(KeyCode.LeftArrow))//좌 이동
             {
+
                 dir = -1;
                 Move(dir);
+
             }
             if (Input.GetKey(KeyCode.RightArrow))//우 이동
             {
+
                 dir = 1;
                 Move(dir);
+
             }
 
 
@@ -276,7 +280,6 @@ namespace nara
                 _Rigid.velocity = Vector3.zero;
                 _Rigid.AddForce(Vector3.up * _JumpingPower, ForceMode.Impulse);
 
-
                 _JumpTime = 0;
                 SetState(PlayerState.Jumping);
                 _IsJump = true;
@@ -304,7 +307,6 @@ namespace nara
 
         void Move(int dir)      /*이동 및 방향전환*/
         {
-
             if (_IsAttack) return;
             _IsRunning = true;
             _RunTime += Time.deltaTime;
@@ -379,7 +381,6 @@ namespace nara
 
         void Attack()
         {
-            float time = 0.0f;
             if (_IsKeyDown && !_IsAttack)//아래키를 누르고
             {
                 if (_IsJump)//점프상태일때
@@ -389,6 +390,7 @@ namespace nara
                 else//점프상태가 아닐 때
                 {
                     //아래공격
+                    SetState(PlayerState.DwAttack);
                 }
             }
             else if (_IsKeyUp && !_IsAttack) //위키를 누른상태
@@ -399,13 +401,27 @@ namespace nara
 
 
             }
-            else//아래, 위키입력 없는 상태
+            else if (!_IsAttack)//아래, 위키입력 없는 상태
             {
+
                 if (_IsJump)//점프 상태
                 {
-                    //중립공격
+                    if (_IsRunning)//달리는 상태
+                    {
+                        //전진공격
+                        _IsAirAtk = true;
+                        this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
+                        SetState(PlayerState.RLAttack);
+                    }
+                    else
+                    {
 
-                    //전진공격
+                        //중립공격
+                        _IsAirAtk = true;
+                        this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
+                        SetState(PlayerState.NormalAttack);
+
+                    }
                 }
                 else
                 {
@@ -413,8 +429,7 @@ namespace nara
                     {
                         if (_IsOnesec)//1초지난상태
                         {
-                            //질주공격
-                            return;
+                            //질주공격-
                         }
                         else
                         {
@@ -427,6 +442,7 @@ namespace nara
                     else
                     {
                         //중립공격
+                         SetState(PlayerState.NormalAttack);
                     }
                 }
             }
@@ -447,14 +463,7 @@ namespace nara
             }
         }
 
-        public void setisAttack()
-        {
-
-            _IsAttack = false;
-            _Anim.SetIsAttack(_IsAttack);
-            _IsRLMove = false;
-
-        }
+       
         void OnFloor()
         {
             RaycastHit hit;
@@ -498,10 +507,19 @@ namespace nara
         {
             _IsRLMove = true;
             _RLMovePos = this.transform.position;
+
             Debug.Log("이거 1번만 실행됨");
         }
 
+        public void setisAttack()
+        {
 
+            _IsAttack = false;
+            _Anim.SetIsAttack(_IsAttack);
+            _IsRLMove = false;
+             _IsAirAtk = false;
+            
+        }
     }
 
 

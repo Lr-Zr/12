@@ -41,7 +41,7 @@ namespace nara
 
         public void EffectPlay(Effect effect, float time = 0.5f)
         {
-            //if (go[(int)effect] != null) return;
+            if (go[(int)effect] != null) return;
             _Pos = this.transform.position + _Effects[(int)effect].transform.position;
 
             go[(int)effect] = Instantiate(_Effects[(int)effect], _Pos, Quaternion.identity);
@@ -60,11 +60,11 @@ namespace nara
             _Pos = _TipOfSword.position;
             switch (type)
             {
-                case 0://up1
+                case 0://Up1
                     _Pos = this.transform.position + _AtkEffects[type].transform.position; //캐릭터위치 + 이펙트가 가지고 있는 포지션
 
                     break;
-                case 1://up2
+                case 1://Up2
                     break;
                 case 2://RL1
                     _Pos = this.transform.position + _AtkEffects[type].transform.position; //캐릭터위치 + 이펙트가 가지고 있는 포지션
@@ -73,18 +73,17 @@ namespace nara
                     if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
                     {
                         _AtkEffects[type].transform.localScale = new Vector3(1, 1, 1);
-                      
                     }
                     else if (_playerCtrller.dir < 0.0f)
                     {
-                      
                         _AtkEffects[type].transform.localScale = new Vector3(-1, 1, 1); ;
                     }
 
                     break;
-                case 4:
+                case 4://Dw1
+                    _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
-                case 5:
+                case 5://Dw2
                     break;
                 case 6:
 

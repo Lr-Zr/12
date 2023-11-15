@@ -43,15 +43,20 @@ namespace nara
                     _playerCtrller._Power = new Vector3(20, 10, 0);
                     _playerCtrller.Dmg = 12;
                     break;
-                case 2:
-
+                case 2://Dw
+                    _playerCtrller._Power = new Vector3(10, 10, 0);
+                    _playerCtrller.Dmg = 5;
                     break;
-                case 3:
-
+                case 3://atk1,2
+                    _playerCtrller._Power = new Vector3(5, 5, 0);
+                    _playerCtrller.Dmg = 1;
                     break;
-                case 4:
+                case 4://atk3
+                    _playerCtrller._Power = new Vector3(10, 20, 0);
+                    _playerCtrller.Dmg = 5;
                     break;
                 case 5:
+             
                     break;
                 case 6:
                     break;
@@ -62,6 +67,7 @@ namespace nara
                 case 9:
                     break;
             }
+            
                     _Collider[atk].SetActive(true);
         }
         public void ActiveOff(int atk)
