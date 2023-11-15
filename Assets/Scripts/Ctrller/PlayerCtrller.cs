@@ -123,18 +123,18 @@ namespace nara
 
         private void FixedUpdate()
         {
-            Debug.Log("ㅇㅇ" + dir);
             //달리다가 멈추는 조건
             _Floortime += Time.deltaTime;
 
 
-            if (_IsAirAtk && _IsJump)
+            if (_IsAirAtk)
                 _Rigid.velocity = Vector3.zero;
 
             if (_IsRLMove)//거리가 어느이상되면 멈춘다.
             {
                 float x = Vector3.Distance(_PrePos, _RLMovePos);
-                _Rigid.AddForce(this.transform.forward * RLspeed, ForceMode.Force);
+                if (x < 3.0f)
+                    _Rigid.AddForce(this.transform.forward * RLspeed, ForceMode.Force);
             }
 
 
@@ -218,16 +218,22 @@ namespace nara
             /* 이동 입력 */
             if (Input.GetKey(KeyCode.LeftArrow))//좌 이동
             {
+                if (!_IsAttack)
+                {
+                    dir = -1;
 
-                dir = -1;
-                Move(dir);
+                    Move(dir);
+                }
 
             }
             if (Input.GetKey(KeyCode.RightArrow))//우 이동
             {
+                if (!_IsAttack)
+                {
+                    dir = 1;
+                    Move(dir);
 
-                dir = 1;
-                Move(dir);
+                }
 
             }
 
@@ -360,7 +366,6 @@ namespace nara
                 else
                 {
                     _RunTime = 0f;
-                    _IsRunning = false;
                     _IsOnesec = false;
                     if (dir > 0)
                         _Eff.EffectPlay(Effect.RBreak);
@@ -442,7 +447,7 @@ namespace nara
                     else
                     {
                         //중립공격
-                         SetState(PlayerState.NormalAttack);
+                        SetState(PlayerState.NormalAttack);
                     }
                 }
             }
@@ -463,7 +468,7 @@ namespace nara
             }
         }
 
-       
+
         void OnFloor()
         {
             RaycastHit hit;
@@ -487,7 +492,7 @@ namespace nara
                         _Anim.SetAnim(_State);
 
                     }
-
+                    _IsRunning = true;
                     _IsJump = false;
                     _IsDJump = false;
                     _Anim.SetIsJump(_IsJump);
@@ -517,8 +522,8 @@ namespace nara
             _IsAttack = false;
             _Anim.SetIsAttack(_IsAttack);
             _IsRLMove = false;
-             _IsAirAtk = false;
-            
+            _IsAirAtk = false;
+
         }
     }
 
