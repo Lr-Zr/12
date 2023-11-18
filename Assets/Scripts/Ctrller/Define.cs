@@ -15,16 +15,18 @@ namespace nara
             DoudbleJumping,//3
             Falling,//4
             Floating,//5
-            Die,//6
+            Stun,//6
             NormalAttack,//7
-            UpAttack,//8
-            DwAttack,//9
-            AirNormalAttack,//10
-            AirDwAttack,//11
-            RLAttack,//12
-            RunAttack,//13
-            KnockOut,//14
-            Stun,//15
+            NormalAttack2,//8
+            NormalAttack3,//9
+            UpAttack,//10
+            DwAttack,//11
+            AirNormalAttack,//12
+            AirDwAttack,//13
+            RLAttack,//14
+            RunAttack,//15
+            KnockOut,//16
+     
             End,
 
         }

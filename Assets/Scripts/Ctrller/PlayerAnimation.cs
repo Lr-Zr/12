@@ -41,8 +41,8 @@ namespace nara
         public void TriggerReset()
         {
             _animator.ResetTrigger("Attack");
+
         }
-        
 
         public void SetIsUpKey(bool isUpKey)
         {

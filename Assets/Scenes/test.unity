@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 913742951, guid: cd8b24daabe492646952c9fa64bcf751, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 485985760608631755, guid: cd8b24daabe492646952c9fa64bcf751, type: 3}
       propertyPath: m_Name
       value: Aries
@@ -181,6 +185,10 @@ PrefabInstance:
     - target: {fileID: 913069442625487202, guid: cd8b24daabe492646952c9fa64bcf751, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3558567803114688297, guid: cd8b24daabe492646952c9fa64bcf751, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5244584103943653889, guid: cd8b24daabe492646952c9fa64bcf751, type: 3}
       propertyPath: m_Constraints
