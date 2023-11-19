@@ -26,11 +26,11 @@ namespace nara
         Transform _TipOfSword;
 
         Vector3 _Pos;
-
+        Vector3 _Rot;
 
 
         PlayerCtrller _playerCtrller;
-     
+
         void Start()
         {
             go = new GameObject[(int)Effect.End];
@@ -76,7 +76,7 @@ namespace nara
                     }
                     else if (_playerCtrller.dir < 0.0f)
                     {
-                        _AtkEffects[type].transform.localScale = new Vector3(-1, 1, 1); ;
+                        _AtkEffects[type].transform.localScale = new Vector3(-1, 1, 1);
                     }
 
                     break;
@@ -85,23 +85,55 @@ namespace nara
                     break;
                 case 5://Dw2
                     break;
-                case 6:
-
+                case 6://기본공격1
+                    if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
+                    {
+                        _AtkEffects[type].transform.localScale = new Vector3(1, 1, 1);
+                        Debug.Log(_playerCtrller.dir);
+                    }
+                    else if (_playerCtrller.dir < 0.0f)
+                    {
+                        _AtkEffects[type].transform.localScale = new Vector3(-1, 1, 1); ;
+                        Debug.Log(_playerCtrller.dir);
+                    }
+                    _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
-                case 7:
+                case 7://기본공격2
+                    if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
+                    {
+                        _AtkEffects[type].transform.localScale = new Vector3(1, -1, 1);
+                        _AtkEffects[type].transform.localEulerAngles = new Vector3(-90f, 0, 0);
+                    }
+                    else if (_playerCtrller.dir < 0.0f)
+                    {
+                        _AtkEffects[type].transform.localScale = new Vector3(-1, -1, 1); ;
+                        _AtkEffects[type].transform.localEulerAngles = new Vector3(90f, 0, 0);
+                    }
+                    _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
-                case 8:
+                case 8://기본공격3
+                    if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
+                    {
+                        _AtkEffects[type].transform.localScale = new Vector3(1, 1, 1);
+                        _AtkEffects[type].transform.localPosition = new Vector3(1f, 0.3f, 0f);
+                    }
+                    else if (_playerCtrller.dir < 0.0f)
+                    {
+                        _AtkEffects[type].transform.localScale = new Vector3(-1, 1, 1);
+                        _AtkEffects[type].transform.localPosition = new Vector3(-1f, 0.3f, 0f);
+                    }
+                    _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
                 case 9:
                     break;
 
             }
 
-            atkgo[type] = Instantiate(_AtkEffects[type], _Pos, Quaternion.identity);
+            atkgo[type] = Instantiate(_AtkEffects[type], _Pos, _AtkEffects[type].transform.rotation);
             Debug.Log("이펙트 onEffects");
         }
         public void EffectOff(int type)
-        {           
+        {
             Destroy(atkgo[type]);
         }
 

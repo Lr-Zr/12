@@ -54,8 +54,9 @@ namespace nara
         RLAttack2,//3
         DwAttack1,//4
         DwAttack2,//5
-        NormalAttack12,//6
-           NormalAttack3,
+        NormalAttack1,//6
+        NormalAttack2,//7
+        NormalAttack3,//8
 
         End,
 

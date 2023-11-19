@@ -65,7 +65,7 @@ ModelImporter:
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
         floatParameter: 0
-        intParameter: 6
+        intParameter: 7
         messageOptions: 0
       - time: 0.25442305
         functionName: ActiveOn
@@ -86,7 +86,7 @@ ModelImporter:
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
         floatParameter: 0
-        intParameter: 6
+        intParameter: 7
         messageOptions: 0
       - time: 1
         functionName: setinit

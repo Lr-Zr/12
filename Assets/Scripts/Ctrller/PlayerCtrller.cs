@@ -77,8 +77,9 @@ namespace nara
         float _BreakTime = 0.0f;
         float _JumpTime = 0.3f;
         float _Floortime = 0.0f;//
-
-
+        //공격 지연 시간 및 조건
+        float _AttackTime = 0.0f;
+        bool _CantAttack;//
 
         public bool _IsAttack;
         bool _IsJump;
@@ -93,11 +94,12 @@ namespace nara
         //keydown time;
         float _KDwTime = 0f;
         float _KUpTime = 0f;
+        float _KQTime = 0f;
 
         //keydown bool;
         bool _IsKeyDown;
         bool _IsKeyUp;
-
+        bool _IsKeyQ;
         //거리 측정용 
         Vector3 _RLMovePos;
         Vector3 _PrePos;
@@ -126,6 +128,19 @@ namespace nara
         {
             //달리다가 멈추는 조건
             _Floortime += Time.deltaTime;
+            //공격 지연
+            if (_CantAttack)
+            {
+                _AttackTime -= Time.deltaTime;
+                if( _AttackTime < 0f ) 
+                {
+                    _IsAttack = false;
+                    _CantAttack = false;
+
+                    _Anim.SetIsAttack(_IsAttack);
+                }
+            }
+
 
 
             if (_IsAirAtk)
@@ -142,6 +157,7 @@ namespace nara
             //커맨드 키입력
             _KUpTime -= Time.deltaTime;
             _KDwTime -= Time.deltaTime;
+            _KQTime -= Time.deltaTime;
             if (_KUpTime < 0) _IsKeyUp = false;
             else _IsKeyUp = true;
             if (_KDwTime < 0) _IsKeyDown = false;
@@ -222,7 +238,6 @@ namespace nara
                 if (!_IsAttack)
                 {
                     dir = -1;
-
                     Move(dir);
                 }
 
@@ -241,7 +256,12 @@ namespace nara
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                Attack();
+                if (_KQTime < 0.0f)
+                {
+                    _KQTime = 0.3f;
+                    Attack();
+
+                }
             }
             //else if (Input.GetKey(KeyCode.Q)) //공격
             //{
@@ -279,6 +299,7 @@ namespace nara
 
         void Jump()
         {
+
             if (_IsAttack) return;
             _RunTime = 0;
             _IsOnesec = false;
@@ -286,6 +307,7 @@ namespace nara
 
             if (!_IsJump && _State != PlayerState.Falling)
             {
+
                 _Rigid.velocity = Vector3.zero;
                 _Rigid.AddForce(Vector3.up * _JumpingPower, ForceMode.Impulse);
 
@@ -316,28 +338,32 @@ namespace nara
 
         void Move(int dir)      /*이동 및 방향전환*/
         {
-            if (_IsAttack) return;
             _IsRunning = true;
+            _Anim.SetIsRunning(_IsRunning);
             _RunTime += Time.deltaTime;
             if (!_IsJump)
             {
+
                 if (dir == 0) return;
+                SetState(PlayerState.Running);
+
                 this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
                 this.transform.position += transform.forward * _MoveSpeed * Time.deltaTime;
 
+
                 if (dir > 0)
                 {
-                    SetState(PlayerState.Running);
+
                     _Eff.EffectPlay(Effect.RRun);
                 }
                 else
                 {
-                    SetState(PlayerState.Running);
                     _Eff.EffectPlay(Effect.LRun);
                 }
             }
             else
             {
+
 
                 if (dir == 0)
                 {
@@ -349,7 +375,6 @@ namespace nara
                     this.transform.position += Vector3.right * dir * _MoveSpeed / 2.0f * Time.deltaTime;
                 }
             }
-
         }
 
 
@@ -426,27 +451,38 @@ namespace nara
                     }
                     else
                     {
-
-                        Debug.Log("점프중립공격 1");
                         //중립공격
-                        _IsAirAtk = true;//이동이 멈춤
-                        this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
-                      
-                        if (_State == PlayerState.NormalAttack)
-                        {
-                            SetState(PlayerState.NormalAttack2);
-                            Debug.Log("normal2");
-                        }
-                        else if (_State == PlayerState.NormalAttack2)
 
-                            SetState(PlayerState.NormalAttack3);
+
+                        Debug.Log("공중 기본 공격");
+                        if (!_IsKeyQ && !_CantAttack)//Q중립공격중 q키가 눌렸을 때
+                        {
+
+                            if (_State == PlayerState.NormalAttack)
+                            {
+                                SetState(PlayerState.NormalAttack2);
+
+                                _IsKeyQ = true;
+                            }
+                            else if (_State == PlayerState.NormalAttack2)
+                            {
+                                SetState(PlayerState.NormalAttack3);
+                                _IsKeyQ = true;
+                            }
+
+                        }
+
                         if (!_IsAttack)
+                        {
+                            _IsAirAtk = true;//이동이 멈춤
+                            this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
                             SetState(PlayerState.NormalAttack);
+                        }
 
 
                     }
                 }
-                else
+                else//땅에 있는 상태
                 {
                     if (_IsRunning)//달리는 상태
                     {
@@ -460,24 +496,28 @@ namespace nara
                         {
                             //전진공격
                             SetState(PlayerState.RLAttack);
-
-                            Debug.Log("전진공격");
+                            //Debug.Log("전진공격");
                         }
                     }
                     else
                     {
                         //중립공격
-                        Debug.Log("중립공격 1");
 
-
-                        if (_State == PlayerState.NormalAttack)
+                        Debug.Log("땅 기본 공격");
+                        if (!_IsKeyQ&&!_CantAttack)//Q중립공격중 q키가 눌렸을 때
                         {
-                            SetState(PlayerState.NormalAttack2);
-                            Debug.Log("normal2");
+                            if (_State == PlayerState.NormalAttack)
+                            {
+                                SetState(PlayerState.NormalAttack2);
+                           
+                                _IsKeyQ = true;
+                            }
+                            else if (_State == PlayerState.NormalAttack2)
+                            {
+                                SetState(PlayerState.NormalAttack3);
+                                _IsKeyQ = true;
+                            }
                         }
-                        else if (_State == PlayerState.NormalAttack2)
-
-                            SetState(PlayerState.NormalAttack3);
                         if (!_IsAttack)
                             SetState(PlayerState.NormalAttack);
 
@@ -486,12 +526,6 @@ namespace nara
                     }
                 }
             }
-
-
-            //달리기 1초전공격(동일)
-            //위공격(동일)
-
-
 
             if (!_IsAttack)
             {
@@ -514,7 +548,7 @@ namespace nara
             if (Physics.Raycast(StartPos, this.transform.up * -1, out hit, 0.2f, mask))
             {
                 //&& _Floortime > 0.05
-                if (_State != PlayerState.Idle && _JumpTime > _JumpRestriction)
+                if (_State != PlayerState.Idle && _JumpTime > _JumpRestriction )
                 {
                     if (_IsJump)
                         _Eff.EffectPlay(Effect.Land);
@@ -524,15 +558,17 @@ namespace nara
                     {
                         _State = PlayerState.Idle;
                         _Anim.SetAnim(_State);
-
+                   
                     }
                     _IsRunning = false;
+                    _Anim.SetIsRunning(_IsRunning); 
                     _IsJump = false;
                     _IsDJump = false;
                     _Anim.SetIsJump(_IsJump);
                     _Anim.SetIsDJump(_IsDJump);
 
 
+                    _IsAirAtk = false;
 
                 }
 
@@ -552,13 +588,20 @@ namespace nara
 
         public void setinit()//초기화
         {
-            
-                _IsAttack = false;
-                _Anim.SetIsAttack(_IsAttack);
+            if (_IsKeyQ) { 
+                _IsKeyQ = false;
+          
+            }
+            else
+            {
+                _CantAttack = true;
+                _AttackTime = 0.2f;
+                //    _IsAttack = false;
                 _IsRLMove = false;
                 _IsAirAtk = false;
                 _Anim.TriggerReset();
-                
+            }
+
 
         }
 
