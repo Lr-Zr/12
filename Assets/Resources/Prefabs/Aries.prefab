@@ -40,7 +40,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913742949}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 1
@@ -155,6 +155,7 @@ Transform:
   - {fileID: 913742950}
   - {fileID: 949165014}
   - {fileID: 6368305473537886103}
+  - {fileID: 3995266439261526431}
   m_Father: {fileID: 2902850679603903496}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -291,20 +292,22 @@ MonoBehaviour:
   _JumpingPower: 13
   _Gauge: 1
   _Life: 3
-  _SlideSpeed: 100
+  _SlideSpeed: 20
   _DownSpeed: 5
   _JumpRestriction: 0.25
   _RunRestriction: 1
-  _SlideTime: 0.5
+  _BreakingTime: 0.25
   _Power: {x: 0, y: 0, z: 0}
   Dmg: 0
-  RLspeed: 1000
+  RLspeed: 500
+  _State: 0
   dir: 0
   airdir: 0
   _RunTime: 0
   _IsAttack: 0
+  _IsRunning: 0
   _IsRLMove: 0
-  _IsAirRlAtk: 0
+  _IsAirAtk: 0
 --- !u!114 &1579784737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,9 +350,12 @@ MonoBehaviour:
   - {fileID: 1237264464613774, guid: 8661f588b1c026949b02beb122517f86, type: 3}
   - {fileID: 1529159316613494, guid: 07b2045f7a5ea0041ad06805c3eec1fd, type: 3}
   - {fileID: 1494690074406284, guid: 59c3710fecf381a428e7390d8bf51628, type: 3}
+  - {fileID: 1494690074406284, guid: aa05c5529d50bd74cb631a9a7ad3b7d7, type: 3}
   - {fileID: 1295943409540678, guid: cfcf9d2404d7b4c46a7f4e5a72e98a82, type: 3}
   - {fileID: 7468637898838875030, guid: 6436de66a6d787b449aae3b4122e1193, type: 3}
-  - {fileID: 7468637898838875030, guid: 6436de66a6d787b449aae3b4122e1193, type: 3}
+  - {fileID: 8893727107283924020, guid: 1ae03a67edc10b14ba5e10e44d0a744b, type: 3}
+  - {fileID: 1295943409540678, guid: 9770097d7a7f5ab4bb6afac7a58ef41e, type: 3}
+  - {fileID: 1295943409540678, guid: 9770097d7a7f5ab4bb6afac7a58ef41e, type: 3}
 --- !u!114 &1905842904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,8 +375,8 @@ MonoBehaviour:
   - {fileID: 6980755301441333617}
   - {fileID: 6980755301441333617}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5517293584321232735}
+  - {fileID: 6980755301441333617}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -388,7 +394,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 88
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!136 &4000599276335532650
 CapsuleCollider:
@@ -437,6 +443,52 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &5517293584321232735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3995266439261526431}
+  - component: {fileID: 6450399507889412229}
+  m_Layer: 9
+  m_Name: AirDwAtk
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3995266439261526431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5517293584321232735}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: -0.584}
+  m_LocalScale: {x: 2.9535527, y: 2.9339328, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2004634024}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &6450399507889412229
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5517293584321232735}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6980755301441333617
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,7 +515,7 @@ Transform:
   m_GameObject: {fileID: 6980755301441333617}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 1.051, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.86484, y: 1.5146301, z: 0.54371}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2004634024}
@@ -477,7 +529,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6980755301441333617}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 1

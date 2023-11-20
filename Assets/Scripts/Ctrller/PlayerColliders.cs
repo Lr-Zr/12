@@ -59,8 +59,14 @@ namespace nara
              
                     break;
                 case 6:
+                    _playerCtrller._Power = new Vector3(0, -5, 0);
+                    _playerCtrller.Dmg = 7;
+                    //hit¼ö 3
                     break;
                 case 7:
+                    _playerCtrller._Power = new Vector3(20, 5, 0);
+                    _playerCtrller.Dmg = 10;
+                    //hit¼ö 3
                     break;
                 case 8:
                     break;

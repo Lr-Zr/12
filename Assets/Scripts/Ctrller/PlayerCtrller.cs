@@ -88,6 +88,8 @@ namespace nara
         public bool _IsRunning;
 
 
+        float _Teemo;
+
         /* 공격 스킬 관련 변수 */
         public bool _IsRLMove;//전진공격 이동시작
         public bool _IsAirAtk;//중력0으로
@@ -149,7 +151,7 @@ namespace nara
             if (_IsRLMove)//거리가 어느이상되면 멈춘다.
             {
                 float x = Vector3.Distance(_PrePos, _RLMovePos);
-                if (x < 3.0f)
+                if (x < _Teemo)
                     _Rigid.AddForce(this.transform.forward * RLspeed, ForceMode.Force);
             }
 
@@ -220,7 +222,7 @@ namespace nara
 
                 _KUpTime = 0.0f;
                 _KDwTime = 0.2f;
-                if (_IsJump && _JumpTime > _JumpRestriction)
+                if (_IsJump && _JumpTime > _JumpRestriction&&!_IsAttack)
                     Move(0);
             }
 
@@ -421,6 +423,13 @@ namespace nara
                 if (_IsJump)//점프상태일때
                 {
                     //아래공격
+                    if (!_IsAttack)
+                    {
+                        _IsAirAtk = true;//이동이 멈춤
+                        this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
+                        SetState(PlayerState.AirDwAttack);
+                    
+                    }
                 }
                 else//점프상태가 아닐 때
                 {
@@ -444,40 +453,22 @@ namespace nara
                     if (_IsRunning)//달리는 상태
                     {
 
-                        //전진공격
+                        //공중전진공격
+                        _Teemo = 3.0f;
                         _IsAirAtk = true;
                         this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
                         SetState(PlayerState.RLAttack);
+
                     }
                     else
                     {
-                        //중립공격
+                        //공중중립공격
 
-
-                        Debug.Log("공중 기본 공격");
-                        if (!_IsKeyQ && !_CantAttack)//Q중립공격중 q키가 눌렸을 때
-                        {
-
-                            if (_State == PlayerState.NormalAttack)
-                            {
-                                SetState(PlayerState.NormalAttack2);
-
-                                _IsKeyQ = true;
-                            }
-                            else if (_State == PlayerState.NormalAttack2)
-                            {
-                                SetState(PlayerState.NormalAttack3);
-                                _IsKeyQ = true;
-                            }
-
-                        }
-
-                        if (!_IsAttack)
-                        {
-                            _IsAirAtk = true;//이동이 멈춤
-                            this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
-                            SetState(PlayerState.NormalAttack);
-                        }
+                       // _IsAirAtk = true;
+                        this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
+                        SetState(PlayerState.AirNormalAttack);
+                    
+               
 
 
                     }
@@ -490,18 +481,20 @@ namespace nara
 
                         if (_IsOnesec)//1초지난상태
                         {
-                            //질주공격-
+                            //따질주공격-
+                            return;
                         }
                         else
                         {
-                            //전진공격
+                            //땅전진공격
                             SetState(PlayerState.RLAttack);
+                            _Teemo = 3.0f;
                             //Debug.Log("전진공격");
                         }
                     }
                     else
                     {
-                        //중립공격
+                        //땅중립공격
 
                         Debug.Log("땅 기본 공격");
                         if (!_IsKeyQ&&!_CantAttack)//Q중립공격중 q키가 눌렸을 때
@@ -583,7 +576,6 @@ namespace nara
             _IsRLMove = true;
             _RLMovePos = this.transform.position;
 
-            Debug.Log("이거 1번만 실행됨");
         }
 
         public void setinit()//초기화
@@ -605,6 +597,22 @@ namespace nara
 
         }
 
+        public void TypeOfPlayer(int type)
+        {
+            if(type ==1)
+            {
+                dir = 1;
+
+                this.transform.eulerAngles = new Vector3(0, -90f, 0);
+                //위치 넣기
+            }
+            else
+            {
+                dir = -1;
+                this.transform.eulerAngles = new Vector3(0, -90f, 0);
+                //위치 넣기
+            }
+        }
 
     }
 

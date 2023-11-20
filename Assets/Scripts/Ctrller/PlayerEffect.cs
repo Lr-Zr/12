@@ -53,7 +53,7 @@ namespace nara
         public void EffectOn(int type)
         {
             //공격을 하잖아 그럼 생존시간 이펙트
-            Debug.Log("실행됬나?");
+           
             //Debug.Log(_AtkPos);
             if (atkgo[type] != null) return;
 
@@ -126,6 +126,38 @@ namespace nara
                     break;
                 case 9:
                     break;
+                case 10:
+                    if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
+                    {
+                        _AtkEffects[type].transform.localScale = new Vector3(1, 1, 1);
+                    }
+                    else if (_playerCtrller.dir < 0.0f)
+                    {
+                        _AtkEffects[type].transform.localScale = new Vector3(-1, 1, 1);
+                    }
+                    _Pos = this.transform.position + _AtkEffects[type].transform.position;
+
+                    break;
+                case 11:
+                    if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
+                    {
+                        _AtkEffects[type].transform.localScale = new Vector3(1, 1, 1);
+                    }
+                    else if (_playerCtrller.dir < 0.0f)
+                    {
+                        _AtkEffects[type].transform.localScale = new Vector3(-1, 1, 1);
+                    }
+                    _Pos += _AtkEffects[type].transform.position;
+                    break;
+                case 12:
+                    break;
+                case 13:
+                    break;
+                case 14:
+                    break;
+                case 15:
+                    break;
+
 
             }
 
@@ -153,6 +185,14 @@ namespace nara
             }
         }
 
+        private void Update()
+        {
+            if (atkgo[10]!=null)
+                atkgo[10].transform.position = this.transform.position + _AtkEffects[10].transform.position; ;
+            if (atkgo[11] != null)
+                atkgo[11].transform.position = _TipOfSword.position+ _AtkEffects[11].transform.position; ;
+
+        }
     }
 
 }
