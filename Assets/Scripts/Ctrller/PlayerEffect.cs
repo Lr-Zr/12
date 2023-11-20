@@ -159,15 +159,39 @@ namespace nara
                 case 16://RL스킬2
                     if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
                     {
-                        _AtkEffects[type].transform.localScale = new Vector3(1, 1, 1);
+
+                        _AtkEffects[type].transform.localEulerAngles = new Vector3(0, 0, 0);
                     }
                     else if (_playerCtrller.dir < 0.0f)
                     {
-                        _AtkEffects[type].transform.localScale = new Vector3(-1, 1, 1);
+
+                        _AtkEffects[type].transform.localEulerAngles = new Vector3(0,180f, 0);
                     }
                     _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
+                case 17://Dw스킬1
+                    _Pos = this.transform.position + _AtkEffects[type].transform.position;
+                    break;
+                case 18://Dw스킬2
+                    break;
+                case 19://노말스킬1
+               
+                    _Pos = this.transform.position + _AtkEffects[type].transform.position;
+                    break;
+                case 20://노말스킬2
+                    if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
+                    {
 
+                        _AtkEffects[type].transform.localEulerAngles = new Vector3(90f, 90f, 0);
+                    }
+                    else if (_playerCtrller.dir < 0.0f)
+                    {
+
+                        _AtkEffects[type].transform.localEulerAngles = new Vector3(-90f, 90f, 0);
+                    }
+                    break;
+                case 21://위스킬3
+                    break;
 
             }
 

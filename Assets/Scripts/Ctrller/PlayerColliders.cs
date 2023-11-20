@@ -25,11 +25,7 @@ namespace nara
         }
 
 
-        void Update()
-        {
-
-        }
-
+       
         /* 공격으로 충돌오브젝트 온오프*/
         public void ActiveOn(int atk)
         {
@@ -76,6 +72,17 @@ namespace nara
                 case 9://RLSkill
                     _playerCtrller._Power = new Vector3(40, 20, 0);
                     _playerCtrller.Dmg = 20;
+                    break;
+                case 10://DwSKill
+                    _playerCtrller._Power = new Vector3(0, 30, 0);
+                    _playerCtrller.Dmg = 15;
+                    break;
+                case 11://NormalSkill
+                    _playerCtrller._Power = new Vector3(20, 10, 0);
+                    _playerCtrller.Dmg = 15;
+                    break;
+                case 12:
+                    
                     break;
             }
             

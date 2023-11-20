@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: b7d7ec2485e375343a05d6970d5e1c1c
+guid: 1a5827f81be2e9640b3720dad5c4aa3e
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: C_NormalSkill
+    second: C_NormalSkill2
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -36,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: C_NormalSkill
+      name: C_NormalSkill2
       takeName: Take 001
       internalID: 0
       firstFrame: 0
-      lastFrame: 16
+      lastFrame: 10
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -53,26 +53,47 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 0
+      keepOriginalPositionY: 1
       keepOriginalPositionXZ: 1
-      heightFromFeet: 1
+      heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
+      - time: 0.0046666656
         functionName: EffectOn
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
         floatParameter: 0
-        intParameter: 19
+        intParameter: 20
         messageOptions: 0
-      - time: 1
+      - time: 0.0046666656
+        functionName: ActiveOn
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
+        floatParameter: 0
+        intParameter: 11
+        messageOptions: 0
+      - time: 0.90533334
+        functionName: ActiveOff
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
+        floatParameter: 0
+        intParameter: 11
+        messageOptions: 0
+      - time: 0.90533334
         functionName: EffectOff
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
         floatParameter: 0
-        intParameter: 19
+        intParameter: 20
+        messageOptions: 0
+      - time: 1
+        functionName: setinit
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: aba1b158b6a106c48bf2a2887b0f0559, type: 3}
+        floatParameter: 0
+        intParameter: 0
         messageOptions: 0
       transformMask:
       - path: 

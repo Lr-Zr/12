@@ -59,7 +59,56 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.26451808
+        functionName: EffectOn
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
+        floatParameter: 0
+        intParameter: 17
+        messageOptions: 0
+      - time: 0.48982888
+        functionName: EffectOff
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
+        floatParameter: 0
+        intParameter: 17
+        messageOptions: 0
+      - time: 0.5455298
+        functionName: ActiveOn
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
+        floatParameter: 0
+        intParameter: 10
+        messageOptions: 0
+      - time: 0.7480524
+        functionName: EffectOn
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
+        floatParameter: 0
+        intParameter: 18
+        messageOptions: 0
+      - time: 0.8300639
+        functionName: EffectOff
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
+        floatParameter: 0
+        intParameter: 18
+        messageOptions: 0
+      - time: 0.8395773
+        functionName: ActiveOff
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
+        floatParameter: 0
+        intParameter: 10
+        messageOptions: 0
+      - time: 1
+        functionName: setinit
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: aba1b158b6a106c48bf2a2887b0f0559, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

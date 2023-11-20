@@ -71,6 +71,8 @@ namespace nara
         Rigidbody _Rigid;
         PlayerAnimation _Anim;
         PlayerEffect _Eff;
+       
+
         public PlayerState _State;
         //방향 좌우 move함수용 및 이펙트 방향 변환
         public int dir;
@@ -111,13 +113,15 @@ namespace nara
         //거리 측정용 
         Vector3 _MovePos;
         Vector3 _PrePos;
+
+
+
         void Start()
         {
 
             _Rigid = GetComponent<Rigidbody>();
             _Anim = GetComponent<PlayerAnimation>();
             _Eff = GetComponent<PlayerEffect>();
-
             GameMgr.Input.KeyAction -= OnKeyboard;
             GameMgr.Input.KeyAction += OnKeyboard;
             _State = PlayerState.Idle;
@@ -213,7 +217,6 @@ namespace nara
                 SetState(PlayerState.Falling);
 
             }
-
 
         }
         void Update()
@@ -475,6 +478,7 @@ namespace nara
                         //공중전진공격
                         _Teemo = 3.0f;
                         _IsAirAtk = true;
+
                         this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
                         SetState(PlayerState.RLAttack);
 
@@ -548,6 +552,12 @@ namespace nara
 
             }
         }
+
+
+
+        /// <summary>
+        /// ///////////////////////////////////////////////////////////////
+        /// </summary>
         void Skill()
         {
 
@@ -556,12 +566,13 @@ namespace nara
                 if (_IsJump)//점프상태일때
                 {
                     //아래공격
-                    return;
+                    SetState(PlayerState.DwSkill);
+
                 }
                 else//점프상태가 아닐 때
                 {
-                    //아래공격
-                    return;
+                    SetState(PlayerState.DwSkill);
+
                 }
             }
             else if (_IsKeyUp) //위키를 누른상태
@@ -580,24 +591,26 @@ namespace nara
                 {
                     if (_IsRunning)//달리는 상태
                     {
-
                         //공중전진공격
-                        return;
+                        _IsAirAtk = true;//이동이 멈춤
+                        this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
+
+                        SetState(PlayerState.RLSkill);
+                        _Teemo = 10f;
                     }
                     else
                     {
-                        //공중중립공격
-
-                        return;
+                        //공중 중립공격
+                        _IsAirAtk = true;//이동이 멈춤
+                        this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
+                        SetState(PlayerState.NormalSkill);
+                     
                     }
                 }
                 else//땅에 있는 상태
                 {
                     if (_IsRunning)//달리는 상태
                     {
-
-
-
                         //땅전진공격
                         SetState(PlayerState.RLSkill);
                         _Teemo = 10f;
@@ -605,7 +618,8 @@ namespace nara
                     else
                     {
                         //땅중립공격
-                        return;
+                        SetState(PlayerState.NormalSkill);
+                       
                     }
                 }
 

@@ -72,7 +72,11 @@ namespace nara
         SkUp3,//14
         SkRl1,//15
         SkRl2,//16
-
+        SkDw1,//17
+        SkDw2,//18
+        SkNormal1,//19
+        SkNormal2,//20
+            
         End,
 
     }

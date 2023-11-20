@@ -67,6 +67,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 15
         messageOptions: 0
+      - time: 0.18820608
+        functionName: onRLMove
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: aba1b158b6a106c48bf2a2887b0f0559, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.21774194
         functionName: ActiveOn
         data: 
@@ -104,13 +111,6 @@ ModelImporter:
         messageOptions: 0
       - time: 1
         functionName: setinit
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: aba1b158b6a106c48bf2a2887b0f0559, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.21774194
-        functionName: onRLMove
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: aba1b158b6a106c48bf2a2887b0f0559, type: 3}
         floatParameter: 0

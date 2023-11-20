@@ -300,7 +300,7 @@ MonoBehaviour:
   _BreakingTime: 0.25
   _Power: {x: 0, y: 0, z: 0}
   Dmg: 0
-  RLspeed: 500
+  RLspeed: 1000
   Upspeed: 20
   _State: 0
   dir: 0
@@ -361,6 +361,8 @@ MonoBehaviour:
   - {fileID: 6620966694190176761, guid: 20590623c548b1f43b0a93c5b67373b6, type: 3}
   - {fileID: 6620966694190176761, guid: 73a18c427b053ce43b122ea93be177c6, type: 3}
   - {fileID: 6253156721638724012, guid: f689d9270d8532346bdedf75bc241ede, type: 3}
+  - {fileID: 147642, guid: 5b1a1ab6c328a18478adc9fb5ae4ae5a, type: 3}
+  - {fileID: 1529159316613494, guid: 0a7e5b172982590439fde83d5e2cacdd, type: 3}
   - {fileID: 6620966694190176761, guid: 20590623c548b1f43b0a93c5b67373b6, type: 3}
 --- !u!114 &1905842904
 MonoBehaviour:
@@ -383,6 +385,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 5517293584321232735}
   - {fileID: 6980755301441333617}
+  - {fileID: 6980755301441333617}
+  - {fileID: 836617034089312134}
   - {fileID: 6980755301441333617}
   - {fileID: 0}
   - {fileID: 0}
