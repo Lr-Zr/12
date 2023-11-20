@@ -32,16 +32,24 @@ namespace nara
         {
             _animator.SetBool("IsAttacking", isAttack);
         }
-
+        public void SetIsSkill(bool isSkill)
+        {
+            _animator.SetBool("IsSkilling", isSkill);
+        }
         public void TriggerAtk()
         {
             _animator.SetTrigger("Attack");
            
         }
+        public void TriggerSkill()
+        {
+            _animator.SetTrigger("Skill");
+
+        }
         public void TriggerReset()
         {
             _animator.ResetTrigger("Attack");
-
+            _animator.ResetTrigger("Skill");
         }
 
         public void SetIsUpKey(bool isUpKey)

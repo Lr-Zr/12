@@ -58,19 +58,24 @@ namespace nara
                 case 5:
              
                     break;
-                case 6:
+                case 6://airdownattack
                     _playerCtrller._Power = new Vector3(0, -5, 0);
                     _playerCtrller.Dmg = 7;
                     //hit¼ö 3
                     break;
-                case 7:
+                case 7://airnormalattack
                     _playerCtrller._Power = new Vector3(20, 5, 0);
                     _playerCtrller.Dmg = 10;
-                    //hit¼ö 3
+                    
                     break;
-                case 8:
+                case 8://upskill
+                    _playerCtrller._Power = new Vector3(0, 20, 0);
+                    _playerCtrller.Dmg = 10;
+
                     break;
-                case 9:
+                case 9://RLSkill
+                    _playerCtrller._Power = new Vector3(40, 20, 0);
+                    _playerCtrller.Dmg = 20;
                     break;
             }
             

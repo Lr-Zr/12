@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class CameraCtrller : MonoBehaviour
@@ -19,8 +20,8 @@ public class CameraCtrller : MonoBehaviour
         
     }
 
-    
-    void Update()
+   
+    void FixedUpdate()
     {
         if (go1 == null|| go2 == null)
         {
@@ -40,14 +41,14 @@ public class CameraCtrller : MonoBehaviour
 
 
 
-        camerapos.z = -1*Mathf.Abs(pos1.x-pos2.x)*0.3f -7 - Mathf.Abs(pos1.y + pos2.y) ;
+        camerapos.z = -10*Mathf.Abs(pos1.x-pos2.x)*Time.deltaTime -7  ;
         if (camerapos.z < -18.0f)
             camerapos.z = -18f;
         else if (camerapos.z > -3.0f)
             camerapos.z = -3f;
        
 
-        camerapos.y = (pos1.y+pos2.y) * 0.5f - camerapos.z/2.5f -1.0f;
+        camerapos.y = (pos1.y+pos2.y) * 0.3f - camerapos.z/2.0f -1.0f;
         if (camerapos.y > 9.0f)
             camerapos.y = 9f;
         else if (camerapos.y < 3.0f)

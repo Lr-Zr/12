@@ -126,7 +126,7 @@ namespace nara
                     break;
                 case 9:
                     break;
-                case 10:
+                case 10://공중아래공격
                     if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
                     {
                         _AtkEffects[type].transform.localScale = new Vector3(1, 1, 1);
@@ -138,7 +138,7 @@ namespace nara
                     _Pos = this.transform.position + _AtkEffects[type].transform.position;
 
                     break;
-                case 11:
+                case 11://공중기본공격
                     if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
                     {
                         _AtkEffects[type].transform.localScale = new Vector3(1, 1, 1);
@@ -149,13 +149,23 @@ namespace nara
                     }
                     _Pos += _AtkEffects[type].transform.position;
                     break;
-                case 12:
+                case 12://위스킬1
                     break;
-                case 13:
+                case 13://위스킬2
                     break;
-                case 14:
+                case 14://위스킬3
                     break;
-                case 15:
+                case 15://RL스킬1
+                case 16://RL스킬2
+                    if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
+                    {
+                        _AtkEffects[type].transform.localScale = new Vector3(1, 1, 1);
+                    }
+                    else if (_playerCtrller.dir < 0.0f)
+                    {
+                        _AtkEffects[type].transform.localScale = new Vector3(-1, 1, 1);
+                    }
+                    _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
 
 

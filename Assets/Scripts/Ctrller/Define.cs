@@ -25,8 +25,15 @@ namespace nara
             AirDwAttack,//13
             RLAttack,//14
             RunAttack,//15
+
             KnockOut,//16
-     
+
+            UpSkill,//17
+            RLSkill,//18
+            DwSkill,//19
+            NormalSkill,//20
+            AirRLSkill,//21
+
             End,
 
         }
@@ -59,7 +66,12 @@ namespace nara
         NormalAttack3,//8
         RunAttack,//9
         AirDownAttack,//10
-        AirNormalAttack,
+        AirNormalAttack,//11
+        SkUp1,//12
+        SkUp2,//13
+        SkUp3,//14
+        SkRl1,//15
+        SkRl2,//16
 
         End,
 

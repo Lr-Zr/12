@@ -64,6 +64,9 @@ namespace nara
         [SerializeField]
         float RLspeed = 1000f;
 
+        [SerializeField]
+        float Upspeed = 1000f;
+
 
         Rigidbody _Rigid;
         PlayerAnimation _Anim;
@@ -82,6 +85,7 @@ namespace nara
         bool _CantAttack;//
 
         public bool _IsAttack;
+        public bool _IsSkill;
         bool _IsJump;
         bool _IsDJump;
         bool _IsOnesec;//질주 공격 
@@ -91,19 +95,21 @@ namespace nara
         float _Teemo;
 
         /* 공격 스킬 관련 변수 */
-        public bool _IsRLMove;//전진공격 이동시작
-        public bool _IsAirAtk;//중력0으로
+        bool _IsRLMove;//전진공격 이동시작
+        bool _IsUpMove;//위스킬 이동시작
+        bool _IsAirAtk;//중력0으로
         //keydown time;
         float _KDwTime = 0f;
         float _KUpTime = 0f;
-        float _KQTime = 0f;
+        float _KQTime = 0f;//공격키 딜레이
+        float _KWTime = 0f;//스킬키 딜레이
 
         //keydown bool;
         bool _IsKeyDown;
         bool _IsKeyUp;
         bool _IsKeyQ;
         //거리 측정용 
-        Vector3 _RLMovePos;
+        Vector3 _MovePos;
         Vector3 _PrePos;
         void Start()
         {
@@ -123,6 +129,7 @@ namespace nara
             _IsKeyUp = false;
             _IsAttack = false;
             _IsRLMove = false;
+            _IsUpMove = false;
             _IsAirAtk = false;
         }
 
@@ -134,12 +141,13 @@ namespace nara
             if (_CantAttack)
             {
                 _AttackTime -= Time.deltaTime;
-                if( _AttackTime < 0f ) 
+                if (_AttackTime < 0f)
                 {
                     _IsAttack = false;
                     _CantAttack = false;
-
+                    _IsSkill = false;
                     _Anim.SetIsAttack(_IsAttack);
+                    _Anim.SetIsSkill(_IsSkill);
                 }
             }
 
@@ -150,9 +158,15 @@ namespace nara
 
             if (_IsRLMove)//거리가 어느이상되면 멈춘다.
             {
-                float x = Vector3.Distance(_PrePos, _RLMovePos);
+                float x = Vector3.Distance(_PrePos, _MovePos);
                 if (x < _Teemo)
                     _Rigid.AddForce(this.transform.forward * RLspeed, ForceMode.Force);
+            }
+            if (_IsUpMove)//거리가 어느이상되면 멈춘다.
+            {
+                _IsAirAtk = false;
+                _Rigid.AddForce(this.transform.up * Upspeed, ForceMode.Impulse);
+                _IsUpMove = false;
             }
 
 
@@ -160,6 +174,7 @@ namespace nara
             _KUpTime -= Time.deltaTime;
             _KDwTime -= Time.deltaTime;
             _KQTime -= Time.deltaTime;
+            _KWTime -= Time.deltaTime;
             if (_KUpTime < 0) _IsKeyUp = false;
             else _IsKeyUp = true;
             if (_KDwTime < 0) _IsKeyDown = false;
@@ -186,14 +201,14 @@ namespace nara
 
 
             //Runtime 초기화;
-            if (_State != PlayerState.Running && !_IsAttack && !_IsOnesec)
+            if (_State != PlayerState.Running && !_IsAttack && !_IsOnesec && !_IsSkill)
             {
                 _RunTime = 0.0f;
             }
 
 
             //낙하상태 
-            if (_Rigid.velocity.y < -0.05f && _IsJump && !_IsAttack)//낙하
+            if (_Rigid.velocity.y < -0.05f && _IsJump && !_IsAttack && !_IsSkill)//낙하
             {
                 SetState(PlayerState.Falling);
 
@@ -222,7 +237,7 @@ namespace nara
 
                 _KUpTime = 0.0f;
                 _KDwTime = 0.2f;
-                if (_IsJump && _JumpTime > _JumpRestriction&&!_IsAttack)
+                if (_IsJump && _JumpTime > _JumpRestriction && !_IsAttack && !_IsSkill)
                     Move(0);
             }
 
@@ -237,7 +252,7 @@ namespace nara
             /* 이동 입력 */
             if (Input.GetKey(KeyCode.LeftArrow))//좌 이동
             {
-                if (!_IsAttack)
+                if (!_IsAttack && !_IsSkill)
                 {
                     dir = -1;
                     Move(dir);
@@ -246,7 +261,7 @@ namespace nara
             }
             if (Input.GetKey(KeyCode.RightArrow))//우 이동
             {
-                if (!_IsAttack)
+                if (!_IsAttack && !_IsSkill)
                 {
                     dir = 1;
                     Move(dir);
@@ -258,7 +273,7 @@ namespace nara
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                if (_KQTime < 0.0f)
+                if (_KQTime < 0.0f && !_IsSkill)
                 {
                     _KQTime = 0.3f;
                     Attack();
@@ -270,9 +285,13 @@ namespace nara
 
             //}
 
-            else if (Input.GetKey(KeyCode.W))//스킬
+            else if (Input.GetKeyDown(KeyCode.W))//스킬
             {
-
+                if (_KWTime < 0.0f && !_IsAttack && !_IsSkill)
+                {
+                    _KWTime = 0.3f;
+                    Skill();
+                }
             }
 
             else if (Input.GetKey(KeyCode.E))//방어
@@ -302,7 +321,7 @@ namespace nara
         void Jump()
         {
 
-            if (_IsAttack) return;
+            if (_IsAttack && _IsSkill) return;
             _RunTime = 0;
             _IsOnesec = false;
 
@@ -428,7 +447,7 @@ namespace nara
                         _IsAirAtk = true;//이동이 멈춤
                         this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
                         SetState(PlayerState.AirDwAttack);
-                    
+
                     }
                 }
                 else//점프상태가 아닐 때
@@ -464,11 +483,11 @@ namespace nara
                     {
                         //공중중립공격
 
-                       // _IsAirAtk = true;
+                        // _IsAirAtk = true;
                         this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
                         SetState(PlayerState.AirNormalAttack);
-                    
-               
+
+
 
 
                     }
@@ -497,12 +516,12 @@ namespace nara
                         //땅중립공격
 
                         Debug.Log("땅 기본 공격");
-                        if (!_IsKeyQ&&!_CantAttack)//Q중립공격중 q키가 눌렸을 때
+                        if (!_IsKeyQ && !_CantAttack)//Q중립공격중 q키가 눌렸을 때
                         {
                             if (_State == PlayerState.NormalAttack)
                             {
                                 SetState(PlayerState.NormalAttack2);
-                           
+
                                 _IsKeyQ = true;
                             }
                             else if (_State == PlayerState.NormalAttack2)
@@ -529,6 +548,79 @@ namespace nara
 
             }
         }
+        void Skill()
+        {
+
+            if (_IsKeyDown)//아래키를 누르고
+            {
+                if (_IsJump)//점프상태일때
+                {
+                    //아래공격
+                    return;
+                }
+                else//점프상태가 아닐 때
+                {
+                    //아래공격
+                    return;
+                }
+            }
+            else if (_IsKeyUp) //위키를 누른상태
+            {
+                //위공격
+                _IsAirAtk = true;
+                SetState(PlayerState.UpSkill);
+                _IsJump = true;
+                _Anim.SetIsJump(_IsJump);
+
+            }
+            else //아래, 위키입력 없는 상태
+            {
+
+                if (_IsJump)//점프 상태
+                {
+                    if (_IsRunning)//달리는 상태
+                    {
+
+                        //공중전진공격
+                        return;
+                    }
+                    else
+                    {
+                        //공중중립공격
+
+                        return;
+                    }
+                }
+                else//땅에 있는 상태
+                {
+                    if (_IsRunning)//달리는 상태
+                    {
+
+
+
+                        //땅전진공격
+                        SetState(PlayerState.RLSkill);
+                        _Teemo = 10f;
+                    }
+                    else
+                    {
+                        //땅중립공격
+                        return;
+                    }
+                }
+
+            }
+
+
+            if (!_IsSkill)
+            {
+                Debug.Log("ss");
+                _Anim.TriggerSkill();
+                _IsSkill = true;
+                _Anim.SetIsSkill(_IsSkill);
+
+            }
+        }
 
 
         void OnFloor()
@@ -541,20 +633,20 @@ namespace nara
             if (Physics.Raycast(StartPos, this.transform.up * -1, out hit, 0.2f, mask))
             {
                 //&& _Floortime > 0.05
-                if (_State != PlayerState.Idle && _JumpTime > _JumpRestriction )
+                if (_State != PlayerState.Idle && _JumpTime > _JumpRestriction)
                 {
                     if (_IsJump)
                         _Eff.EffectPlay(Effect.Land);
                     _Rigid.velocity = Vector3.zero;
                     _Floortime = 0.0f;
-                    if (!_IsAttack)
+                    if (!_IsAttack && !_IsSkill)
                     {
                         _State = PlayerState.Idle;
                         _Anim.SetAnim(_State);
-                   
+
                     }
                     _IsRunning = false;
-                    _Anim.SetIsRunning(_IsRunning); 
+                    _Anim.SetIsRunning(_IsRunning);
                     _IsJump = false;
                     _IsDJump = false;
                     _Anim.SetIsJump(_IsJump);
@@ -574,23 +666,32 @@ namespace nara
         public void onRLMove()
         {
             _IsRLMove = true;
-            _RLMovePos = this.transform.position;
-
+            _MovePos = this.transform.position;
+        }
+        public void onUpMove()
+        {
+            Debug.Log("upmove");
+            _IsUpMove = true;
+            _MovePos = this.transform.position;
         }
 
         public void setinit()//초기화
         {
-            if (_IsKeyQ) { 
+            if (_IsKeyQ)
+            {
                 _IsKeyQ = false;
-          
+
             }
             else
             {
                 _CantAttack = true;
                 _AttackTime = 0.2f;
+
                 //    _IsAttack = false;
                 _IsRLMove = false;
+                _IsUpMove = false;
                 _IsAirAtk = false;
+
                 _Anim.TriggerReset();
             }
 
@@ -599,7 +700,7 @@ namespace nara
 
         public void TypeOfPlayer(int type)
         {
-            if(type ==1)
+            if (type == 1)
             {
                 dir = 1;
 
