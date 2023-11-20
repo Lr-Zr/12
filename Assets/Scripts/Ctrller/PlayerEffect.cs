@@ -125,6 +125,8 @@ namespace nara
                     _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
                 case 9:
+                    _Pos = this.transform.position + _AtkEffects[type].transform.position;
+
                     break;
                 case 10://공중아래공격
                     if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환

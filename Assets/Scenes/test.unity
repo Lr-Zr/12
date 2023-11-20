@@ -131,6 +131,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1905842904, guid: cd8b24daabe492646952c9fa64bcf751, type: 3}
+      propertyPath: _Collider.Array.data[5]
+      value: 
+      objectReference: {fileID: 1768457005}
+    - target: {fileID: 1905842904, guid: cd8b24daabe492646952c9fa64bcf751, type: 3}
       propertyPath: _Collider.Array.data[11]
       value: 
       objectReference: {fileID: 1768457005}
@@ -187,6 +191,10 @@ PrefabInstance:
       value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 7270706764737177180, guid: cd8b24daabe492646952c9fa64bcf751, type: 3}
+      propertyPath: _AtkEffects.Array.data[9]
+      value: 
+      objectReference: {fileID: 401465033491715099, guid: f563ff666c7b4ea489cc23f0e1f6ccc3, type: 3}
+    - target: {fileID: 7270706764737177180, guid: cd8b24daabe492646952c9fa64bcf751, type: 3}
       propertyPath: _AtkEffects.Array.data[19]
       value: 
       objectReference: {fileID: 1981590522052008, guid: 4a6341327efc9254bb3c26f7c37452de, type: 3}
@@ -198,6 +206,18 @@ PrefabInstance:
       propertyPath: _AtkEffects.Array.data[21]
       value: 
       objectReference: {fileID: 6620966694190176761, guid: 20590623c548b1f43b0a93c5b67373b6, type: 3}
+    - target: {fileID: 7686206897013176274, guid: cd8b24daabe492646952c9fa64bcf751, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9026300748030331100, guid: cd8b24daabe492646952c9fa64bcf751, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9170293759670284007, guid: cd8b24daabe492646952c9fa64bcf751, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd8b24daabe492646952c9fa64bcf751, type: 3}
 --- !u!1 &186700840 stripped
@@ -577,7 +597,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2136832713}
   m_LocalRotation: {x: 0.043619405, y: 0, z: 0, w: 0.9990483}
-  m_LocalPosition: {x: 2.4, y: 4.33, z: -14.53}
+  m_LocalPosition: {x: 2.4, y: 4.33, z: -14.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -36,6 +36,12 @@ namespace nara
         {
             _animator.SetBool("IsSkilling", isSkill);
         }
+
+
+        public void SetIsOnesec(bool onesec)
+        {
+            _animator.SetBool("Onesec", onesec);
+        }
         public void TriggerAtk()
         {
             _animator.SetTrigger("Attack");

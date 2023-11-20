@@ -41,11 +41,11 @@ public class CameraCtrller : MonoBehaviour
 
 
 
-        camerapos.z = -10*Mathf.Abs(pos1.x-pos2.x)*Time.deltaTime -7 - Mathf.Abs(pos1.y + pos2.y) * 0.7f;
-        if (camerapos.z < -18.0f)
-            camerapos.z = -18f;
-        else if (camerapos.z > -3.0f)
-            camerapos.z = -3f;
+        camerapos.z = -13*Mathf.Abs(pos1.x-pos2.x)*Time.deltaTime -9 - Mathf.Abs(pos1.y + pos2.y) * 0.7f;
+        if (camerapos.z < -20.0f)
+            camerapos.z = -20f;
+        else if (camerapos.z > -2.0f)
+            camerapos.z = -2f;
        
 
         camerapos.y = (pos1.y+pos2.y) * 0.3f - camerapos.z/2.0f -2.0f;

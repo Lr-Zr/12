@@ -51,8 +51,9 @@ namespace nara
                     _playerCtrller._Power = new Vector3(10, 20, 0);
                     _playerCtrller.Dmg = 5;
                     break;
-                case 5:
-             
+                case 5://runatk
+                    _playerCtrller._Power = new Vector3(10, 20, 0);
+                    _playerCtrller.Dmg = 8;
                     break;
                 case 6://airdownattack
                     _playerCtrller._Power = new Vector3(0, -5, 0);

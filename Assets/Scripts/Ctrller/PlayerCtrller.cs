@@ -195,6 +195,7 @@ namespace nara
             {
                 _RunTime = _RunRestriction;
                 _IsOnesec = true;
+                _Anim.SetIsOnesec(_IsOnesec);
                 _BreakTime = _BreakingTime;
             }
             //달리는지 달리지 않는지 판단.
@@ -328,6 +329,7 @@ namespace nara
             _RunTime = 0;
             _IsOnesec = false;
 
+            _Anim.SetIsOnesec(_IsOnesec);
 
             if (!_IsJump && _State != PlayerState.Falling)
             {
@@ -420,6 +422,8 @@ namespace nara
 
                     _RunTime = 0.0f;
                     _IsOnesec = false;
+
+                    _Anim.SetIsOnesec(_IsOnesec);
                     if (dir > 0)
                         _Eff.EffectPlay(Effect.RBreak);
                     else
@@ -504,8 +508,10 @@ namespace nara
 
                         if (_IsOnesec)//1초지난상태
                         {
-                            //따질주공격-
-                            return;
+                            //땅질주공격-
+                            SetState(PlayerState.RunAttack);
+                            Debug.Log("땅질주");
+                            _Teemo = 2.0f;
                         }
                         else
                         {
