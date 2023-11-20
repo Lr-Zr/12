@@ -189,6 +189,7 @@ namespace nara
 
                         _AtkEffects[type].transform.localEulerAngles = new Vector3(-90f, 90f, 0);
                     }
+                    _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
                 case 21://À§½ºÅ³3
                     break;

@@ -31,7 +31,7 @@ public class CameraCtrller : MonoBehaviour
         pos1 = go1.transform.position;
         pos2 = go2.transform.position;
 
-
+        
         camerapos.x = (pos1.x + pos2.x)*0.5f;
         //카메라 최대 x값
         if (camerapos.x > 12.0f)
@@ -41,14 +41,14 @@ public class CameraCtrller : MonoBehaviour
 
 
 
-        camerapos.z = -10*Mathf.Abs(pos1.x-pos2.x)*Time.deltaTime -7  ;
+        camerapos.z = -10*Mathf.Abs(pos1.x-pos2.x)*Time.deltaTime -7 - Mathf.Abs(pos1.y + pos2.y) * 0.7f;
         if (camerapos.z < -18.0f)
             camerapos.z = -18f;
         else if (camerapos.z > -3.0f)
             camerapos.z = -3f;
        
 
-        camerapos.y = (pos1.y+pos2.y) * 0.3f - camerapos.z/2.0f -1.0f;
+        camerapos.y = (pos1.y+pos2.y) * 0.3f - camerapos.z/2.0f -2.0f;
         if (camerapos.y > 9.0f)
             camerapos.y = 9f;
         else if (camerapos.y < 3.0f)

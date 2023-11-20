@@ -699,7 +699,7 @@ namespace nara
             else
             {
                 _CantAttack = true;
-                _AttackTime = 0.2f;
+                _AttackTime = 0.05f;
 
                 //    _IsAttack = false;
                 _IsRLMove = false;
