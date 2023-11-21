@@ -16,6 +16,8 @@ namespace nara
     public class PlayerCtrller : MonoBehaviour
     {
 
+        [SerializeField]
+        int playertype = 1;
 
         //이동속도
         [SerializeField]
@@ -31,7 +33,7 @@ namespace nara
 
         //목숨
         [SerializeField]
-        int _Life = 3;
+        public int _Life = 3;
 
         //미끄러지는 속도
         [SerializeField]
@@ -71,7 +73,7 @@ namespace nara
         Rigidbody _Rigid;
         PlayerAnimation _Anim;
         PlayerEffect _Eff;
-       
+
 
         public PlayerState _State;
         //방향 좌우 move함수용 및 이펙트 방향 변환
@@ -82,6 +84,8 @@ namespace nara
         float _BreakTime = 0.0f;
         float _JumpTime = 0.3f;
         float _Floortime = 0.0f;//
+        float _GodTime = 0.0f;
+
         //공격 지연 시간 및 조건
         float _AttackTime = 0.0f;
         bool _CantAttack;//
@@ -110,6 +114,7 @@ namespace nara
         bool _IsKeyDown;
         bool _IsKeyUp;
         bool _IsKeyQ;
+        bool _IskeyE;
         //거리 측정용 
         Vector3 _MovePos;
         Vector3 _PrePos;
@@ -135,10 +140,15 @@ namespace nara
             _IsRLMove = false;
             _IsUpMove = false;
             _IsAirAtk = false;
+            if (this.gameObject.name == "Aries")
+                playertype = 1;
+            else
+                playertype = 2;
         }
 
         private void FixedUpdate()
         {
+            if (playertype == 2) return;
             //달리다가 멈추는 조건
             _Floortime += Time.deltaTime;
             //공격 지연
@@ -166,7 +176,7 @@ namespace nara
                 if (x < _Teemo)
                     _Rigid.AddForce(this.transform.forward * RLspeed, ForceMode.Force);
             }
-            if (_IsUpMove)//거리가 어느이상되면 멈춘다.
+            if (_IsUpMove)
             {
                 _IsAirAtk = false;
                 _Rigid.AddForce(this.transform.up * Upspeed, ForceMode.Impulse);
@@ -222,6 +232,8 @@ namespace nara
         }
         void Update()
         {
+
+            if (playertype == 2) return;
             //바닥에 있는지 체크 함수;
             OnFloor();
             //브레이킹 부분
@@ -235,6 +247,9 @@ namespace nara
         void OnKeyboard()
         {
 
+
+            if (playertype == 2) return;
+            //1p//////////////////////////////////////////////////////////////////////////////
             /* 상하 입력 */
             if (Input.GetKey(KeyCode.DownArrow))//조합기 하 및 하강 속도 향상
             {
@@ -307,16 +322,13 @@ namespace nara
             {
 
             }
-
-
-
-
             /* 점프 */
             if (Input.GetKey(KeyCode.Space))
             {
                 Jump();
 
             }
+            //1p//////////////////////////////////////////////////////////////////////////////
         }
 
 
@@ -610,7 +622,7 @@ namespace nara
                         _IsAirAtk = true;//이동이 멈춤
                         this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
                         SetState(PlayerState.NormalSkill);
-                     
+
                     }
                 }
                 else//땅에 있는 상태
@@ -625,7 +637,7 @@ namespace nara
                     {
                         //땅중립공격
                         SetState(PlayerState.NormalSkill);
-                       
+
                     }
                 }
 
