@@ -229,6 +229,8 @@ namespace nara
             if (atkgo[11] != null)
                 atkgo[11].transform.position = _TipOfSword.position+ _AtkEffects[11].transform.position; ;
 
+            if (atkgo[17]!=null)
+                atkgo[17].transform.position = this.transform.position + _AtkEffects[17].transform.position; ;
         }
     }
 

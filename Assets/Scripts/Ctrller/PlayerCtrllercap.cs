@@ -140,10 +140,8 @@ namespace nara
             _IsRLMove = false;
             _IsUpMove = false;
             _IsAirAtk = false;
-            if (this.gameObject.name == "Aries")
-                playertype = 1;
-            else
-                playertype = 2;
+            playertype = 2;
+          
         }
 
         private void FixedUpdate()
@@ -246,87 +244,159 @@ namespace nara
         void OnKeyboard()
         {
 
-
-            //1p//////////////////////////////////////////////////////////////////////////////
-            /* 상하 입력 */
-            if (Input.GetKey(KeyCode.DownArrow))//조합기 하 및 하강 속도 향상
+            if (playertype == 1)
             {
-
-                _KUpTime = 0.0f;
-                _KDwTime = 0.2f;
-                if (_IsJump && _JumpTime > _JumpRestriction && !_IsAttack && !_IsSkill)
-                    Move(0);
-            }
-
-            else if (Input.GetKey(KeyCode.UpArrow))//조합키 상
-            {
-                _KUpTime = 0.2f;
-                _KDwTime = 0.0f;
-
-
-            }
-
-            /* 이동 입력 */
-            if (Input.GetKey(KeyCode.LeftArrow))//좌 이동
-            {
-                if (!_IsAttack && !_IsSkill)
+                if (Input.GetKey(KeyCode.S))//조합기 하 및 하강 속도 향상
                 {
-                    dir = -1;
-                    Move(dir);
+
+                    _KUpTime = 0.0f;
+                    _KDwTime = 0.2f;
+                    if (_IsJump && _JumpTime > _JumpRestriction && !_IsAttack && !_IsSkill)
+                        Move(0);
                 }
 
-            }
-            if (Input.GetKey(KeyCode.RightArrow))//우 이동
-            {
-                if (!_IsAttack && !_IsSkill)
+                else if (Input.GetKey(KeyCode.W))//조합키 상
                 {
-                    dir = 1;
-                    Move(dir);
+                    _KUpTime = 0.2f;
+                    _KDwTime = 0.0f;
+
 
                 }
 
-            }
-
-
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                if (_KQTime < 0.0f && !_IsSkill)
+                /* 이동 입력 */
+                if (Input.GetKey(KeyCode.A))//좌 이동
                 {
-                    _KQTime = 0.3f;
-                    Attack();
+                    if (!_IsAttack && !_IsSkill)
+                    {
+                        dir = -1;
+                        Move(dir);
+                    }
+
+                }
+                if (Input.GetKey(KeyCode.D))//우 이동
+                {
+                    if (!_IsAttack && !_IsSkill)
+                    {
+                        dir = 1;
+                        Move(dir);
+
+                    }
+
+                }
+
+
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    if (_KQTime < 0.0f && !_IsSkill)
+                    {
+                        _KQTime = 0.3f;
+                        Attack();
+
+                    }
+                }
+                //else if (Input.GetKey(KeyCode.Q)) //공격
+                //{
+
+                //}
+
+                else if (Input.GetKeyDown(KeyCode.G))//스킬
+                {
+                    if (_KWTime < 0.0f && !_IsAttack && !_IsSkill)
+                    {
+                        _KWTime = 0.3f;
+                        Skill();
+                    }
+                }
+
+                else if (Input.GetKey(KeyCode.H))//방어
+                {
+
+                }
+
+                /* 점프 */
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    Jump();
 
                 }
             }
-            //else if (Input.GetKey(KeyCode.Q)) //공격
-            //{
-
-            //}
-
-            else if (Input.GetKeyDown(KeyCode.W))//스킬
+            else
             {
-                if (_KWTime < 0.0f && !_IsAttack && !_IsSkill)
+                if (Input.GetKey(KeyCode.DownArrow))//조합기 하 및 하강 속도 향상
                 {
-                    _KWTime = 0.3f;
-                    Skill();
+
+                    _KUpTime = 0.0f;
+                    _KDwTime = 0.2f;
+                    if (_IsJump && _JumpTime > _JumpRestriction && !_IsAttack && !_IsSkill)
+                        Move(0);
+                }
+
+                else if (Input.GetKey(KeyCode.UpArrow))//조합키 상
+                {
+                    _KUpTime = 0.2f;
+                    _KDwTime = 0.0f;
+
+
+                }
+
+                /* 이동 입력 */
+                if (Input.GetKey(KeyCode.LeftArrow))//좌 이동
+                {
+                    if (!_IsAttack && !_IsSkill)
+                    {
+                        dir = -1;
+                        Move(dir);
+                    }
+
+                }
+                if (Input.GetKey(KeyCode.RightArrow))//우 이동
+                {
+                    if (!_IsAttack && !_IsSkill)
+                    {
+                        dir = 1;
+                        Move(dir);
+
+                    }
+
+                }
+
+
+                if (Input.GetKeyDown(KeyCode.L))
+                {
+                    if (_KQTime < 0.0f && !_IsSkill)
+                    {
+                        _KQTime = 0.3f;
+                        Attack();
+
+                    }
+                }
+                //else if (Input.GetKey(KeyCode.Q)) //공격
+                //{
+
+                //}
+
+                else if (Input.GetKeyDown(KeyCode.Semicolon))//스킬
+                {
+                    if (_KWTime < 0.0f && !_IsAttack && !_IsSkill)
+                    {
+                        _KWTime = 0.3f;
+                        Skill();
+                    }
+                }
+
+                else if (Input.GetKey(KeyCode.Quote))//방어
+                {
+
+                }
+
+                /* 점프 */
+                if (Input.GetKey(KeyCode.RightShift))
+                {
+                    Jump();
+
                 }
             }
-
-            else if (Input.GetKey(KeyCode.E))//방어
-            {
-
-            }
-
-            else if (Input.GetKey(KeyCode.R))//잡기
-            {
-
-            }
-            /* 점프 */
-            if (Input.GetKey(KeyCode.Space))
-            {
-                Jump();
-
-            }
-            //1p//////////////////////////////////////////////////////////////////////////////
+          
         }
 
 

@@ -27,7 +27,7 @@ namespace nara
 
         Vector3 _Pos;
         Vector3 _Rot;
-
+        Vector3 _original;
 
         PlayerCtrllerTauro _playerCtrller;
 
@@ -61,16 +61,10 @@ namespace nara
             switch (type)
             {
                 case 0://기본공격1
-                    if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
-                    {
-                        _AtkEffects[type].transform.localScale = new Vector3(1, 1, 1);
-
-                    }
-                    else if (_playerCtrller.dir < 0.0f)
-                    {
-                        _AtkEffects[type].transform.localScale = new Vector3(-1, 1, 1); ;
-
-                    }
+                   
+                        _AtkEffects[type].transform.localScale = new Vector3(_playerCtrller.dir, 1, 1);
+                        
+                   
                     _Pos += _AtkEffects[type].transform.position;
                     break;
                 case 1://기본공격2
@@ -118,9 +112,18 @@ namespace nara
 
 
                 case 5://좌우공격
+                  
                     break;
 
                 case 6://질주공격
+                    if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
+                    {
+                        _AtkEffects[type].transform.localScale = new Vector3(1, 1, 1);
+                    }
+                    else if (_playerCtrller.dir < 0.0f)
+                    {
+                        _AtkEffects[type].transform.localScale = new Vector3(-1, 1, 1);
+                    }
                     break;
 
 

@@ -197,7 +197,7 @@ namespace nara
                     break;
 
 
-                case 14://아래스킬3
+                case 14://좌우스킬
                     _AtkEffects[type].transform.position = new Vector3(-1 * _playerCtrller.dir, 0.7f, 0f);
                     _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
