@@ -109,7 +109,7 @@ namespace nara
 
                 case 4://아래공격
 
-                    _AtkEffects[type].transform.position = new Vector3(_playerCtrller.dir, 0.3f, 0);
+                    _AtkEffects[type].transform.position = new Vector3(_playerCtrller.dir, 2, 1);
 
                     _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
@@ -147,11 +147,13 @@ namespace nara
                 case 8://공중중립공격
                     if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
                     {
-                        _AtkEffects[type].transform.localScale = new Vector3(1, 1, 1);
+                       
+                        _AtkEffects[type].transform.localEulerAngles = new Vector3(-90f, 0, 0f);
                     }
                     else if (_playerCtrller.dir < 0.0f)
                     {
-                        _AtkEffects[type].transform.localScale = new Vector3(-1, 1, 1);
+                        
+                        _AtkEffects[type].transform.localEulerAngles = new Vector3(-90f, 0, 180f);
                     }
                     _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
@@ -199,6 +201,16 @@ namespace nara
 
                 case 14://좌우스킬
                     _AtkEffects[type].transform.position = new Vector3(-1 * _playerCtrller.dir, 0.7f, 0f);
+                    if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
+                    {
+
+                        _AtkEffects[type].transform.localEulerAngles = new Vector3(0f, 0, 0f);
+                    }
+                    else if (_playerCtrller.dir < 0.0f)
+                    {
+
+                        _AtkEffects[type].transform.localEulerAngles = new Vector3(0f, 180f, 0f);
+                    }
                     _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
 

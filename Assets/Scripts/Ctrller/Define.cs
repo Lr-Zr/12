@@ -15,7 +15,7 @@ namespace nara
             DoudbleJumping,//3
             Falling,//4
             Floating,//5
-            Stun,//6
+            Stun,//6°æÁ÷//
             NormalAttack,//7
             NormalAttack2,//8
             NormalAttack3,//9
@@ -26,13 +26,16 @@ namespace nara
             RLAttack,//14
             RunAttack,//15
 
-            KnockOut,//16
+            KnockOut,//16//³Ë¾Æ¿ô
 
             UpSkill,//17
             RLSkill,//18
             DwSkill,//19
             NormalSkill,//20
             AirRLSkill,//21
+
+
+            Down,//22//´Ù¿î
 
             End,
 

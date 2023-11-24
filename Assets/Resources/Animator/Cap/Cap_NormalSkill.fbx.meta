@@ -22,7 +22,8 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: Event setinit has a time (0.674074) outside the clip's
+      valid range (0.000000..0.666667). It will never be fired
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -60,33 +61,33 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.21712962
-        functionName: EffectOn
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 0f80db2a742d82a40ae564752483dc93, type: 3}
-        floatParameter: 0
-        intParameter: 9
-        messageOptions: 0
-      - time: 0.6222222
-        functionName: EffectOff
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 0f80db2a742d82a40ae564752483dc93, type: 3}
-        floatParameter: 0
-        intParameter: 9
-        messageOptions: 0
-      - time: 0.21712962
+      - time: 0
         functionName: ActiveOn
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: a4fb8e5fd07dc924fb11ceeb5d2b9e87, type: 3}
         floatParameter: 0
         intParameter: 8
         messageOptions: 0
-      - time: 0.6222222
+      - time: 0
+        functionName: EffectOn
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 0f80db2a742d82a40ae564752483dc93, type: 3}
+        floatParameter: 0
+        intParameter: 9
+        messageOptions: 0
+      - time: 0.9497331
         functionName: ActiveOff
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: a4fb8e5fd07dc924fb11ceeb5d2b9e87, type: 3}
         floatParameter: 0
         intParameter: 8
+        messageOptions: 0
+      - time: 0.9519165
+        functionName: EffectOff
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 0f80db2a742d82a40ae564752483dc93, type: 3}
+        floatParameter: 0
+        intParameter: 9
         messageOptions: 0
       - time: 1.011111
         functionName: setinit

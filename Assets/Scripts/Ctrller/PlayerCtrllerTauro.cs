@@ -25,7 +25,7 @@ namespace nara
 
         //점프력
         [SerializeField]
-        float _JumpingPower = 10.0f;
+        float _JumpingPower = 13.0f;
 
         //게이지
         [SerializeField]
@@ -33,15 +33,15 @@ namespace nara
 
         //목숨
         [SerializeField]
-        int _Life = 3;
+        public int _Life = 3;
 
         //미끄러지는 속도
         [SerializeField]
-        float _SlideSpeed = 50.0f;
+        float _SlideSpeed = 20.0f;
 
         //하강키 누를때 스피드
         [SerializeField]
-        float _DownSpeed = 3.0f;
+        float _DownSpeed = 5.0f;
 
         //점프 후  행동제약
         [SerializeField]
@@ -67,7 +67,7 @@ namespace nara
         float RLspeed = 1000f;
 
         [SerializeField]
-        float Upspeed = 1000f;
+        float Upspeed = 20f;
 
 
         Rigidbody _Rigid;
@@ -140,12 +140,12 @@ namespace nara
             _IsRLMove = false;
             _IsUpMove = false;
             _IsAirAtk = false;
-            playertype = 2;
-
+            playertype = 0;
         }
 
         private void FixedUpdate()
         {
+
 
             //달리다가 멈추는 조건
             _Floortime += Time.deltaTime;
@@ -221,7 +221,7 @@ namespace nara
 
 
             //낙하상태 
-            if (_Rigid.velocity.y < -0.05f && _IsJump)//낙하
+            if (_Rigid.velocity.y < -0.05f && _IsJump && !_IsAttack && !_IsSkill)//낙하
             {
                 SetState(PlayerState.Falling);
 
@@ -230,6 +230,7 @@ namespace nara
         }
         void Update()
         {
+
 
             //바닥에 있는지 체크 함수;
             OnFloor();
@@ -243,7 +244,6 @@ namespace nara
         }
         void OnKeyboard()
         {
-
             if (playertype == 1)
             {
                 if (Input.GetKey(KeyCode.S))//조합기 하 및 하강 속도 향상
@@ -396,7 +396,10 @@ namespace nara
 
                 }
             }
+            //1p//////////////////////////////////////////////////////////////////////////////
+            /* 상하 입력 */
 
+            //1p//////////////////////////////////////////////////////////////////////////////
         }
 
 
@@ -405,7 +408,7 @@ namespace nara
         void Jump()
         {
 
-            if (_IsAttack && _IsSkill) return;
+            if (_IsAttack || _IsSkill) return;
             _RunTime = 0;
             _IsOnesec = false;
 
@@ -528,10 +531,9 @@ namespace nara
             {
                 if (_IsJump)//점프상태일때
                 {
-                    //아래공격
+                    //공중아래공격 
                     if (!_IsAttack)
                     {
-                        _IsAirAtk = true;//이동이 멈춤
                         this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
                         SetState(PlayerState.AirDwAttack);
 
@@ -539,14 +541,15 @@ namespace nara
                 }
                 else//점프상태가 아닐 때
                 {
-                    //아래공격
+                    //아래공격 X
+
                     SetState(PlayerState.DwAttack);
                 }
             }
             else if (_IsKeyUp) //위키를 누른상태
             {
                 //위공격
-
+                _IsAirAtk = true;//이동이 멈춤
                 SetState(PlayerState.UpAttack);//1.67
 
 
@@ -571,7 +574,7 @@ namespace nara
                     {
                         //공중중립공격
 
-                        // _IsAirAtk = true;
+
                         this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
                         SetState(PlayerState.AirNormalAttack);
 
@@ -652,6 +655,8 @@ namespace nara
                 if (_IsJump)//점프상태일때
                 {
                     //아래공격
+
+                    _IsAirAtk = true;//이동이 멈춤
                     SetState(PlayerState.DwSkill);
 
                 }
@@ -665,9 +670,9 @@ namespace nara
             {
                 //위공격
                 _IsAirAtk = true;
-                SetState(PlayerState.UpSkill);
                 _IsJump = true;
                 _Anim.SetIsJump(_IsJump);
+                SetState(PlayerState.UpSkill);
 
             }
             else //아래, 위키입력 없는 상태
@@ -744,10 +749,10 @@ namespace nara
                         _State = PlayerState.Idle;
                         _Anim.SetAnim(_State);
 
+                        _IsJump = false;
                     }
                     _IsRunning = false;
                     _Anim.SetIsRunning(_IsRunning);
-                    _IsJump = false;
                     _IsDJump = false;
                     _Anim.SetIsJump(_IsJump);
                     _Anim.SetIsDJump(_IsDJump);

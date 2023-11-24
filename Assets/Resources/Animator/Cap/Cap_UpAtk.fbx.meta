@@ -60,28 +60,28 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.36891857
+      - time: 0.09817621
         functionName: EffectOn
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 0f80db2a742d82a40ae564752483dc93, type: 3}
         floatParameter: 0
         intParameter: 3
         messageOptions: 0
-      - time: 0.36891857
+      - time: 0.10254302
         functionName: ActiveOn
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: a4fb8e5fd07dc924fb11ceeb5d2b9e87, type: 3}
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
-      - time: 0.6256848
+      - time: 0.9095276
         functionName: ActiveOff
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: a4fb8e5fd07dc924fb11ceeb5d2b9e87, type: 3}
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
-      - time: 0.6256848
+      - time: 0.911711
         functionName: EffectOff
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 0f80db2a742d82a40ae564752483dc93, type: 3}

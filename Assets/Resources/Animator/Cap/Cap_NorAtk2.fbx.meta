@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: a8383773ef9ffe24fa7560d6974d73fa
+guid: 37d4852d105b29f4d9501a016905cc27
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Cap_NormalAtk1
+    second: Cap_NorAtk2
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -22,7 +22,8 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: Event setinit has a time (0.536569) outside the clip's
+      valid range (0.000000..0.533333). It will never be fired
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -36,11 +37,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Cap_NormalAtk1
+      name: Cap_NorAtk2
       takeName: Take 001
       internalID: 0
       firstFrame: 0
-      lastFrame: 13
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -60,35 +61,35 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.55471694
+      - time: 0.65899575
         functionName: EffectOn
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 0f80db2a742d82a40ae564752483dc93, type: 3}
         floatParameter: 0
-        intParameter: 0
+        intParameter: 1
         messageOptions: 0
-      - time: 0.55471694
+      - time: 0.8259414
+        functionName: EffectOff
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 0f80db2a742d82a40ae564752483dc93, type: 3}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.65899575
         functionName: ActiveOn
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: a4fb8e5fd07dc924fb11ceeb5d2b9e87, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9387561
+      - time: 0.8259414
         functionName: ActiveOff
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: a4fb8e5fd07dc924fb11ceeb5d2b9e87, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9389313
-        functionName: EffectOff
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 0f80db2a742d82a40ae564752483dc93, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
+      - time: 1.0060669
         functionName: setinit
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 12c2bbe33a5bb484d81adfb0c34a1820, type: 3}
