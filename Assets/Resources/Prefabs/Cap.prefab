@@ -47,7 +47,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &641038578
 Transform:
   m_ObjectHideFlags: 0
@@ -93,7 +93,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1503555236
 Transform:
   m_ObjectHideFlags: 0
@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1538528265
 Transform:
   m_ObjectHideFlags: 0
@@ -356,10 +356,10 @@ GameObject:
   - component: {fileID: 1817789301}
   - component: {fileID: 1817789299}
   - component: {fileID: 1817789300}
+  - component: {fileID: 1817789307}
   - component: {fileID: 1817789309}
   - component: {fileID: 1817789306}
   - component: {fileID: 1817789305}
-  - component: {fileID: 1817789307}
   - component: {fileID: 1817789310}
   m_Layer: 0
   m_Name: Cap
@@ -427,6 +427,33 @@ ConstantForce:
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
+--- !u!114 &1817789307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6988321809871982896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4fb8e5fd07dc924fb11ceeb5d2b9e87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Collider:
+  - {fileID: 2095000459}
+  - {fileID: 2095000459}
+  - {fileID: 5880196248740764405}
+  - {fileID: 1203678052475717867}
+  - {fileID: 2095000459}
+  - {fileID: 2095000459}
+  - {fileID: 1538528264}
+  - {fileID: 641038576}
+  - {fileID: 2095000459}
+  - {fileID: 1503555235}
+  - {fileID: 2095000459}
+  - {fileID: 2095000459}
+  - {fileID: 2095000459}
+  - {fileID: 2095000459}
 --- !u!95 &1817789309
 Animator:
   serializedVersion: 5
@@ -460,10 +487,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12c2bbe33a5bb484d81adfb0c34a1820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playertype: 1
+  _Name: Cap
+  playertype: 2
   _MoveSpeed: 10
   _JumpingPower: 13
-  _Gauge: 1
+  _Gauge: 33
   _Life: 3
   _SlideSpeed: 20
   _DownSpeed: 5
@@ -515,30 +543,10 @@ MonoBehaviour:
   - {fileID: 8765350373887584717, guid: 9343e33c351cbf34789e5042abc34ec8, type: 3}
   - {fileID: 1314787664237178328, guid: ff2c81b4d9eacd14cbb3ca20d64828c8, type: 3}
   - {fileID: 435114672331356783, guid: e150168e8820d884588ca44ef415b318, type: 3}
---- !u!114 &1817789307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6988321809871982896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4fb8e5fd07dc924fb11ceeb5d2b9e87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Collider:
-  - {fileID: 2095000459}
-  - {fileID: 2095000459}
-  - {fileID: 5880196248740764405}
-  - {fileID: 1203678052475717867}
-  - {fileID: 2095000459}
-  - {fileID: 2095000459}
-  - {fileID: 1538528264}
-  - {fileID: 641038576}
-  - {fileID: 2095000459}
-  - {fileID: 5880196248740764405}
-  - {fileID: 0}
+  - {fileID: 1737387875744588960, guid: 939ca2c3a328fd148899a1c031cad9d5, type: 3}
+  - {fileID: 1737387875744588960, guid: 939ca2c3a328fd148899a1c031cad9d5, type: 3}
+  - {fileID: 5724093481334579524, guid: c7bfec779e24c214cb079c5372cafff2, type: 3}
+  - {fileID: 512424923302614939, guid: e3deeb2d0a07d1c48b9cbe6fe5accad5, type: 3}
 --- !u!114 &1817789310
 MonoBehaviour:
   m_ObjectHideFlags: 0

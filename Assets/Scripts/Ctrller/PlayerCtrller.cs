@@ -16,8 +16,18 @@ namespace nara
     public class PlayerCtrller : MonoBehaviour
     {
 
+
+
+
+
+
+
+
         [SerializeField]
-        int playertype = 1;
+        string _Name = "Aries";
+
+        [SerializeField]
+        public int playertype = 1;
 
         //이동속도
         [SerializeField]
@@ -29,7 +39,7 @@ namespace nara
 
         //게이지
         [SerializeField]
-        float _Gauge = 1.0f;
+        public float _Gauge = 1.0f;
 
         //목숨
         [SerializeField]
@@ -73,12 +83,13 @@ namespace nara
         Rigidbody _Rigid;
         PlayerAnimation _Anim;
         PlayerEffect _Eff;
+        PlayerColliders _Cols;
 
+        GameObject _objgauge;
 
         public PlayerState _State;
         //방향 좌우 move함수용 및 이펙트 방향 변환
         public int dir;
-        public int airdir;
         //time
         public float _RunTime = 0.0f;
         float _BreakTime = 0.0f;
@@ -121,12 +132,36 @@ namespace nara
 
 
 
+
+
+        //
+        float stuntime = 0.1f;//경직시간
+        float outtime;//넉아웃 시간//
+        float startime;//넉아웃 이펙트 생성시간;
+        Vector3 knockPos;
+
+
+        //test
+        [SerializeField]
+        float kt1;
+        [SerializeField]
+        float kt2;
+        [SerializeField]
+        float kt3;
+        [SerializeField]
+        float kt4;
+        [SerializeField]
+        float kt5;
+
+
+
         void Start()
         {
 
             _Rigid = GetComponent<Rigidbody>();
             _Anim = GetComponent<PlayerAnimation>();
             _Eff = GetComponent<PlayerEffect>();
+            _Cols = GetComponent<PlayerColliders>();
             GameMgr.Input.KeyAction -= OnKeyboard;
             GameMgr.Input.KeyAction += OnKeyboard;
             _State = PlayerState.Idle;
@@ -140,12 +175,16 @@ namespace nara
             _IsRLMove = false;
             _IsUpMove = false;
             _IsAirAtk = false;
-            playertype = 0;
+            playertype = 1;
+
+
+            TypeOfPlayer(1);
         }
 
         private void FixedUpdate()
         {
-
+            outtime -= Time.deltaTime;
+            stuntime -= Time.deltaTime;
 
             //달리다가 멈추는 조건
             _Floortime += Time.deltaTime;
@@ -224,14 +263,18 @@ namespace nara
             if (_Rigid.velocity.y < -0.05f && _IsJump && !_IsAttack && !_IsSkill)//낙하
             {
                 SetState(PlayerState.Falling);
-
+                //_IsJump = true;
             }
 
         }
         void Update()
         {
+            if (_objgauge)//null이 아닐때 발동
+            {
+                _objgauge.GetComponent<PlayerGauge>()._gauge = _Gauge;
+                _objgauge.transform.position = this.transform.position;
 
-
+            }
             //바닥에 있는지 체크 함수;
             OnFloor();
             //브레이킹 부분
@@ -244,6 +287,7 @@ namespace nara
         }
         void OnKeyboard()
         {
+            if (stuntime >= 0f||outtime>=0f) return;
             if (playertype == 1)
             {
                 if (Input.GetKey(KeyCode.S))//조합기 하 및 하강 속도 향상
@@ -316,7 +360,7 @@ namespace nara
                 /* 점프 */
                 if (Input.GetKey(KeyCode.Space))
                 {
-                     Jump();
+                    Jump();
 
                 }
             }
@@ -496,7 +540,7 @@ namespace nara
             {
                 if (_BreakTime > 0)
                 {
-                    //Debug.Log("이동");
+
                     _Rigid.AddForce(this.transform.forward * _SlideSpeed);
                     _BreakTime -= Time.deltaTime;
                 }
@@ -574,7 +618,7 @@ namespace nara
                     {
                         //공중중립공격
 
-                       
+
                         this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
                         SetState(PlayerState.AirNormalAttack);
 
@@ -593,7 +637,7 @@ namespace nara
                         {
                             //땅질주공격-
                             SetState(PlayerState.RunAttack);
-                            Debug.Log("땅질주");
+
                             _Teemo = 2.0f;
                         }
                         else
@@ -608,7 +652,6 @@ namespace nara
                     {
                         //땅중립공격
 
-                        Debug.Log("땅 기본 공격");
                         if (!_IsKeyQ && !_CantAttack)//Q중립공격중 q키가 눌렸을 때
                         {
                             if (_State == PlayerState.NormalAttack)
@@ -719,7 +762,6 @@ namespace nara
 
             if (!_IsSkill)
             {
-                Debug.Log("ss");
                 _Anim.TriggerSkill();
                 _IsSkill = true;
                 _Anim.SetIsSkill(_IsSkill);
@@ -733,9 +775,9 @@ namespace nara
             RaycastHit hit;
             Vector3 StartPos = transform.position;
             StartPos.y += 0.1f;
-            Debug.DrawRay(StartPos, this.transform.up * -0.2f, Color.green);
+            Debug.DrawRay(StartPos, this.transform.up * -0.15f, Color.green);
             LayerMask mask = LayerMask.GetMask("Floor");
-            if (Physics.Raycast(StartPos, this.transform.up * -1, out hit, 0.2f, mask))
+            if (Physics.Raycast(StartPos, this.transform.up * -1, out hit, 0.15f, mask))
             {
                 //&& _Floortime > 0.05
                 if (_State != PlayerState.Idle && _JumpTime > _JumpRestriction)
@@ -749,7 +791,7 @@ namespace nara
                         _State = PlayerState.Idle;
                         _Anim.SetAnim(_State);
 
-                    _IsJump = false;
+                        _IsJump = false;
                     }
                     _IsRunning = false;
                     _Anim.SetIsRunning(_IsRunning);
@@ -775,7 +817,6 @@ namespace nara
         }
         public void onUpMove()
         {
-            Debug.Log("upmove");
             _IsUpMove = true;
             _MovePos = this.transform.position;
         }
@@ -803,6 +844,136 @@ namespace nara
 
         }
 
+
+
+
+        private void OnTriggerEnter(Collider other)
+        {
+
+
+          
+            //방어스킬 쓸때는 하지말것.
+            if (playertype == 1)
+            {
+                Debug.Log(playertype + "P " + "콜리젼22222");
+                if (other.gameObject.tag == "2PA")
+                {
+                    Debug.Log("2pa가 1p 터치");
+                    if (_Name == "Aries")
+                    {
+                        PlayerCtrllercap pc = other.transform.root.GetComponent<PlayerCtrllercap>();
+                        this.dir = -pc.dir;
+                        pc.HitRot();
+                        if (pc._Power.x == 0 && pc._Power.y == 0) //경직
+                        {
+                            stuntime = 0.2f;
+                            _Gauge += pc.Dmg;
+
+                            Debug.Log("아리스가 캡한테 맞는경우");
+
+                        }
+                        else//넉아웃
+                        {
+                            _Gauge += pc.Dmg;
+                            setOutTime();
+                            _Rigid.AddForce(pc._Power*_Gauge);
+
+
+                            Debug.Log("아리스가 캡한테 맞는경우2");
+                        }
+                    }
+                    else
+                    {
+                        PlayerCtrller pc = other.transform.root.GetComponent<PlayerCtrller>();
+                        this.dir = -pc.dir;
+                        pc.HitRot();
+
+                        if (pc._Power.x == 0 && pc._Power.y == 0) //경직
+                        {
+                            stuntime = 0.2f;
+                            _Gauge += pc.Dmg;
+
+                            Debug.Log("캡이 아리스한테 맞는경우1");
+                        }
+                        else//넉아웃
+                        {
+                            _Gauge += pc.Dmg;
+                            setOutTime();
+                            _Rigid.AddForce(pc._Power * _Gauge);
+
+                            Debug.Log("캡이 아리스한테 맞는경우2");
+                        }
+                    }
+
+
+                    _Eff.Hitted(other.transform.position, 1);
+
+                    Debug.Log("??");
+                }
+
+            }
+            else
+            {
+                Debug.Log("여긴 들어오면 안돼");
+                if (other.gameObject.tag == "1PA")
+                {
+                    if (_Name == "Aries")
+                    {
+                        PlayerCtrllercap pc = other.transform.root.GetComponent<PlayerCtrllercap>();
+                        dir = -pc.dir;
+                        pc.HitRot();
+                        if (pc._Power.x == 0 && pc._Power.y == 0) //경직
+                        {
+                            stuntime = 0.2f;
+                            _Gauge += pc.Dmg;
+
+                            Debug.Log("11111");
+                        }
+                        else//넉아웃
+                        {
+                            _Gauge += pc.Dmg;
+                            setOutTime();
+                            _Rigid.AddForce(pc._Power * _Gauge);
+                            Debug.Log("222222");
+                        }
+                    }
+                    else
+                    {
+                        PlayerCtrller pc = other.transform.root.GetComponent<PlayerCtrller>();
+                        dir = -pc.dir;
+                        pc.HitRot();
+                        if (pc._Power.x == 0 && pc._Power.y == 0) //경직
+                        {
+                            stuntime = 0.2f;
+                            _Gauge += pc.Dmg;
+
+                            Debug.Log("333333");
+                        }
+                        else//넉아웃
+                        {
+                            _Gauge += pc.Dmg;
+                            setOutTime();
+                            _Rigid.AddForce(pc._Power * _Gauge);
+
+                            Debug.Log("44444");
+                        }
+                    }
+                    _Eff.Hitted(other.transform.position, 1);
+                }
+            }
+        }
+
+
+
+
+        public void HitRot()
+        {
+            
+            Debug.Log(name + " hitted222");
+            this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
+
+
+        }
         public void TypeOfPlayer(int type)
         {
             if (type == 1)
@@ -811,18 +982,51 @@ namespace nara
 
                 this.transform.eulerAngles = new Vector3(0, -90f, 0);
                 //위치 넣기
+                this.tag = "1P";
+
+                _Cols.SetTag("1PA");
+                _objgauge = GameObject.Find("1pGauge");
+                _objgauge.transform.position = this.transform.position;
+
+                _objgauge.GetComponent<PlayerGauge>()._pType = playertype;
+                _objgauge.GetComponent<PlayerGauge>()._gauge = _Gauge;
+
+
+
             }
             else
             {
                 dir = -1;
                 this.transform.eulerAngles = new Vector3(0, -90f, 0);
                 //위치 넣기
+                this.tag = "2P";
+
+                _Cols.SetTag("2PA");
+                _objgauge = GameObject.Find("2pGauge");
+                _objgauge.transform.position = this.transform.position;
+
+                _objgauge.GetComponent<PlayerGauge>()._pType = playertype;
+                _objgauge.GetComponent<PlayerGauge>()._gauge = _Gauge;
+
             }
         }
 
+
+
+        void setOutTime()
+        {
+            if (_Gauge <= 25f) outtime = kt1;
+            else if (_Gauge <= 50f) outtime = kt2;
+            else if (_Gauge <= 90f) outtime = kt3;
+            else if (_Gauge <= 150f) outtime = kt4;
+            else outtime = kt5;
+            //if (_Gauge <= 25f) outtime = 0.1f;
+            //else if (_Gauge <= 50f) outtime = 0.2f;
+            //else if (_Gauge <= 90f) outtime = 0.3f;
+            //else if (_Gauge <= 150f) outtime = 0.4f;
+            //else outtime = 0.5f;
+        }
     }
-
-
 
 
 

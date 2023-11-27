@@ -10,7 +10,7 @@ namespace nara
     {
 
         [SerializeField]
-        GameObject[] _Collider = new GameObject[11];
+        public GameObject[] _Collider = new GameObject[11];
 
         PlayerCtrllercap _playerCtrller;
         void Start()
@@ -116,6 +116,16 @@ namespace nara
         {
             _Collider[atk].SetActive(false);
        
+        }
+
+        public void SetTag(string tag)
+        {
+            for (int i = 0; i < _Collider.Length; i++)
+            {
+                if (_Collider[i] != null)
+                    _Collider[i].tag = tag;
+
+            }
         }
     }
 

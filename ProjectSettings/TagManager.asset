@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Missile
+  - 1P
+  - 1PA
+  - 2P
+  - 2PA
   layers:
   - Default
   - TransparentFX

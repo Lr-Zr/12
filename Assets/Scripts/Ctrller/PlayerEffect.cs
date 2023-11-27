@@ -30,7 +30,9 @@ namespace nara
 
 
         PlayerCtrller _playerCtrller;
-
+        [SerializeField]
+        GameObject _hit;
+        GameObject _hitgo;
         void Start()
         {
             go = new GameObject[(int)Effect.End];
@@ -89,13 +91,11 @@ namespace nara
                     if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
                     {
                         _AtkEffects[type].transform.localScale = new Vector3(1, 1, 1);
-                        Debug.Log(_playerCtrller.dir);
                     }
                     else if (_playerCtrller.dir < 0.0f)
                     {
                         _AtkEffects[type].transform.localScale = new Vector3(-1, 1, 1); ;
-                        Debug.Log(_playerCtrller.dir);
-                    }
+                     }
                     _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
                 case 7://기본공격2
@@ -199,7 +199,6 @@ namespace nara
             }
 
             atkgo[type] = Instantiate(_AtkEffects[type], _Pos, _AtkEffects[type].transform.rotation);
-            Debug.Log("이펙트 onEffects");
         }
         public void EffectOff(int type)
         {
@@ -231,6 +230,14 @@ namespace nara
 
             if (atkgo[17]!=null)
                 atkgo[17].transform.position = this.transform.position + _AtkEffects[17].transform.position; ;
+        }
+
+
+        public void Hitted(Vector3 pos,float time)
+        {
+
+            _hitgo= Instantiate(_hit, pos, _hit.transform.rotation);
+            Destroy(_hitgo, time);
         }
     }
 

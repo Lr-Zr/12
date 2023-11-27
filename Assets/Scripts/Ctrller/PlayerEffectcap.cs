@@ -30,7 +30,9 @@ namespace nara
 
 
         PlayerCtrllercap _playerCtrller;
-
+        [SerializeField]
+        GameObject _hit;
+        GameObject _hitgo;
         void Start()
         {
             go = new GameObject[(int)Effect.End];
@@ -217,7 +219,6 @@ namespace nara
             }
 
             atkgo[type] = Instantiate(_AtkEffects[type], _Pos, _AtkEffects[type].transform.rotation);
-            Debug.Log("이펙트 onEffects");
         }
         public void EffectOff(int type)
         {
@@ -228,7 +229,7 @@ namespace nara
         {
             foreach (Transform child in parent)
             {
-                // 조건을 만족하는지 여부를 검사
+                // 조건을 만족하는지 여부를   Debug.Log(playertype + "P " + "콜리젼");검사
                 if (child.name == "TipOfSword")
                 {
                     _TipOfSword = child;
@@ -251,6 +252,13 @@ namespace nara
             if (atkgo[10] != null)
                 atkgo[10].transform.position = this.transform.position+ _AtkEffects[10].transform.position; ;
 
+        }
+
+        public void Hitted(Vector3 pos, float time)
+        {
+          
+            _hitgo = Instantiate(_hit, pos, _hit.transform.rotation);
+            Destroy(_hitgo, time);
         }
     }
 
