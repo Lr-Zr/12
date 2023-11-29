@@ -55,9 +55,13 @@ namespace nara
         public void EffectOn(int type)
         {
             //공격을 하잖아 그럼 생존시간 이펙트
-           
+
             //Debug.Log(_AtkPos);
-            if (atkgo[type] != null) return;
+            if (type != 22)
+            {
+
+                if (atkgo[type] != null) return;
+            }
 
             _Pos = _TipOfSword.position;
             switch (type)
@@ -95,7 +99,7 @@ namespace nara
                     else if (_playerCtrller.dir < 0.0f)
                     {
                         _AtkEffects[type].transform.localScale = new Vector3(-1, 1, 1); ;
-                     }
+                    }
                     _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
                 case 7://기본공격2
@@ -115,12 +119,12 @@ namespace nara
                     if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
                     {
                         _AtkEffects[type].transform.localScale = new Vector3(1, 1, 1);
-                        _AtkEffects[type].transform.localPosition = new Vector3(1f, 0.3f, 0f);
+                        _AtkEffects[type].transform.localPosition = new Vector3(1f, 0.6f, 0f);
                     }
                     else if (_playerCtrller.dir < 0.0f)
                     {
                         _AtkEffects[type].transform.localScale = new Vector3(-1, 1, 1);
-                        _AtkEffects[type].transform.localPosition = new Vector3(-1f, 0.3f, 0f);
+                        _AtkEffects[type].transform.localPosition = new Vector3(-1f, 0.6f, 0f);
                     }
                     _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
@@ -158,7 +162,6 @@ namespace nara
                 case 14://위스킬3
                     break;
                 case 15://RL스킬1
-                case 16://RL스킬2
                     if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
                     {
 
@@ -166,8 +169,22 @@ namespace nara
                     }
                     else if (_playerCtrller.dir < 0.0f)
                     {
+                        _AtkEffects[type].transform.localEulerAngles = new Vector3(0, 180f, 0);
+                    }
+                    _Pos = this.transform.position + _AtkEffects[type].transform.position;
+                    break;
+                case 16://RL스킬2
+                    if (_playerCtrller.dir > 0.0f)//이펙트 방향 변환
+                    {
 
-                        _AtkEffects[type].transform.localEulerAngles = new Vector3(0,180f, 0);
+                        _AtkEffects[type].transform.localPosition = new Vector3(-4f, 0.6f, 0f);
+                        _AtkEffects[type].transform.localEulerAngles = new Vector3(0, 0, 0);
+                    }
+                    else if (_playerCtrller.dir < 0.0f)
+                    {
+
+                        _AtkEffects[type].transform.localPosition = new Vector3(4f, 0.6f, 0f);
+                        _AtkEffects[type].transform.localEulerAngles = new Vector3(0, 180f, 0);
                     }
                     _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
@@ -177,7 +194,7 @@ namespace nara
                 case 18://Dw스킬2
                     break;
                 case 19://노말스킬1
-               
+
                     _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
                 case 20://노말스킬2
@@ -193,8 +210,13 @@ namespace nara
                     }
                     _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
-                case 21://위스킬3
+                case 21://방어
+                    _Pos = this.transform.position;
                     break;
+                case 22://넉아웃
+                    _Pos = this.transform.position;
+                    break;
+
 
             }
 
@@ -204,7 +226,10 @@ namespace nara
         {
             Destroy(atkgo[type]);
         }
-
+        public void EffDestroyWithTime(int type,float time)
+        {
+            Destroy(atkgo[type],time);
+        }
         void SearchInChildren(Transform parent)
         {
             foreach (Transform child in parent)
@@ -223,20 +248,20 @@ namespace nara
 
         private void Update()
         {
-            if (atkgo[10]!=null)
+            if (atkgo[10] != null)
                 atkgo[10].transform.position = this.transform.position + _AtkEffects[10].transform.position; ;
             if (atkgo[11] != null)
-                atkgo[11].transform.position = _TipOfSword.position+ _AtkEffects[11].transform.position; ;
+                atkgo[11].transform.position = _TipOfSword.position + _AtkEffects[11].transform.position; ;
 
-            if (atkgo[17]!=null)
+            if (atkgo[17] != null)
                 atkgo[17].transform.position = this.transform.position + _AtkEffects[17].transform.position; ;
         }
 
 
-        public void Hitted(Vector3 pos,float time)
+        public void Hitted(Vector3 pos, float time)
         {
 
-            _hitgo= Instantiate(_hit, pos, _hit.transform.rotation);
+            _hitgo = Instantiate(_hit, pos, _hit.transform.rotation);
             Destroy(_hitgo, time);
         }
     }

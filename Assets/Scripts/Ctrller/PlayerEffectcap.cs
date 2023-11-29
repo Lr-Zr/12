@@ -57,8 +57,11 @@ namespace nara
             //공격을 하잖아 그럼 생존시간 이펙트
 
             //Debug.Log(_AtkPos);
-            if (atkgo[type] != null) return;
+            if (type != 16)
+            {
 
+                if (atkgo[type] != null) return;
+            }
             _Pos = _TipOfSword.position;
             switch (type)
             {
@@ -107,6 +110,7 @@ namespace nara
 
 
                 case 3://위공격
+                    
                     break;
 
                 case 4://아래공격
@@ -216,6 +220,13 @@ namespace nara
                     _Pos = this.transform.position + _AtkEffects[type].transform.position;
                     break;
 
+                case 15://방어
+                    _Pos = this.transform.position;
+                    break;
+                case 16://방어
+                    _Pos = this.transform.position;
+                    break;
+
             }
 
             atkgo[type] = Instantiate(_AtkEffects[type], _Pos, _AtkEffects[type].transform.rotation);
@@ -224,7 +235,10 @@ namespace nara
         {
             Destroy(atkgo[type]);
         }
-
+        public void EffDestroyWithTime(int type, float time)
+        {
+            Destroy(atkgo[type], time);
+        }
         void SearchInChildren(Transform parent)
         {
             foreach (Transform child in parent)
@@ -251,6 +265,8 @@ namespace nara
                 atkgo[9].transform.position = _TipOfSword.position + _AtkEffects[9].transform.position; ;
             if (atkgo[10] != null)
                 atkgo[10].transform.position = this.transform.position+ _AtkEffects[10].transform.position; ;
+            if (atkgo[14] != null)
+                atkgo[14].transform.position = this.transform.position + _AtkEffects[14].transform.position; ;
 
         }
 

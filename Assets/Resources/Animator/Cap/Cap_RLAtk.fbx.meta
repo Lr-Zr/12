@@ -96,6 +96,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.15260188
+        functionName: onRLMove
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 12c2bbe33a5bb484d81adfb0c34a1820, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

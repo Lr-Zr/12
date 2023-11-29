@@ -101,6 +101,10 @@ namespace nara
         bool _IsDJump;
         bool _IsOnesec;//질주 공격 
         public bool _IsRunning;
+        bool _IsKnockOut;
+        bool _IsShield;
+        public float _ECooldown = 0f;//방어키 딜레이
+
 
 
         float _Teemo;
@@ -127,8 +131,7 @@ namespace nara
         float stuntime = 0.1f;//경직시간
         float outtime;//넉아웃 시간//
         float startime;//넉아웃 이펙트 생성시간;
-        Vector3 knockPos;
-
+      
 
         //test
         [SerializeField]
@@ -141,6 +144,8 @@ namespace nara
         float kt4;
         [SerializeField]
         float kt5;
+
+        Vector3 hittedPower;
 
         void Start()
         {
@@ -170,7 +175,43 @@ namespace nara
 
         private void FixedUpdate()
         {
+            //방어키 쿨타임 
+            _ECooldown -= Time.deltaTime;
 
+            if (_IsShield)
+            {
+                if (_ECooldown < 5.0f)
+                {
+                    Debug.Log("test1");
+                    _IsShield = false;
+
+                    _Eff.EffectOff(15);
+                }
+
+            }
+            //넉아웃 상태에서 이동
+            if (_IsKnockOut) 
+            {
+                startime += Time.deltaTime;
+                if(startime>0.05f)
+                {
+                    //이펙트 생성
+                    _Eff.EffectOn(16);
+                    _Eff.EffDestroyWithTime(16, 1);
+                    startime = 0;
+                }
+                if (outtime < 0)
+                {
+                    _IsKnockOut = false;
+                    _Rigid.velocity = Vector3.zero;
+                    startime = 0;
+                  
+                }
+                KnockOutMove();
+
+                outtime -= Time.deltaTime;
+            }
+            stuntime -= Time.deltaTime;
 
 
             //달리다가 멈추는 조건
@@ -247,7 +288,7 @@ namespace nara
 
 
             //낙하상태 
-            if (_Rigid.velocity.y < -0.05f && _IsJump && !_IsAttack && !_IsSkill)//낙하
+            if (_Rigid.velocity.y < -0.05f && !_IsAttack && !_IsSkill && stuntime < 0f&&!_IsKnockOut)//낙하
             {
                 SetState(PlayerState.Falling);
 
@@ -275,6 +316,8 @@ namespace nara
         }
         void OnKeyboard()
         {
+
+            if ((_IsKnockOut || _IsShield) || stuntime >= 0f) return;
             if (playertype == 1)
             {
                 if (Input.GetKey(KeyCode.S))//조합기 하 및 하강 속도 향상
@@ -341,7 +384,14 @@ namespace nara
 
                 else if (Input.GetKey(KeyCode.H))//방어
                 {
+                    if ((_State == PlayerState.Idle || _State == PlayerState.Running) && _ECooldown < 0f)
+                    {
+                        SetState(PlayerState.Sheild);
+                        _IsShield = true;
+                        _ECooldown = 6.0f;
+                        _Anim.TriggerShield();
 
+                    }
                 }
 
                 /* 점프 */
@@ -417,7 +467,14 @@ namespace nara
 
                 else if (Input.GetKey(KeyCode.Quote))//방어
                 {
+                    if ((_State == PlayerState.Idle || _State == PlayerState.Running) && _ECooldown < 0f)
+                    {
+                        SetState(PlayerState.Sheild);
+                        _IsShield = true;
+                        _ECooldown = 6.0f;
+                        _Anim.TriggerShield();
 
+                    }
                 }
 
                 /* 점프 */
@@ -551,8 +608,8 @@ namespace nara
 
         void SetState(PlayerState t)
         {
-            _State = t;
-            _Anim.SetAnim(_State);
+            _State = t;//코드내의 상태
+            _Anim.SetAnim(_State);//애니메이터의상태
         }
 
         void Attack()
@@ -773,7 +830,7 @@ namespace nara
                     if (outtime < 0 && stuntime < 0)
                         _Rigid.velocity = Vector3.zero;
                     _Floortime = 0.0f;
-                    if (!_IsAttack && !_IsSkill)
+                    if (!_IsAttack && !_IsSkill && !_IsShield && stuntime < 0f && !_IsKnockOut)
                     {
                         _State = PlayerState.Idle;
                         _Anim.SetAnim(_State);
@@ -841,60 +898,34 @@ namespace nara
             //방어스킬 쓸때는 하지말것.
             if (playertype == 1)
             {
-                Debug.Log(playertype + "P " + "콜리젼22222");
                 if (other.gameObject.tag == "2PA")
                 {
-                    Debug.Log("2pa가 1p 터치");
-                    if (_Name == "Aries")
+
+                    PlayerCtrller pc = other.transform.root.GetComponent<PlayerCtrller>();
+                    this.dir = -pc.dir;
+                    pc.HitRot();
+
+                    if (pc._Power.x == 0 && pc._Power.y == 0) //경직
                     {
-                        PlayerCtrllercap pc = other.transform.root.GetComponent<PlayerCtrllercap>();
-                        this.dir = -pc.dir;
-                        pc.HitRot();
-                        if (pc._Power.x == 0 && pc._Power.y == 0) //경직
-                        {
-                            stuntime = 0.2f;
-                            _Gauge += pc.Dmg;
-
-                            Debug.Log("아리스가 캡한테 맞는경우");
-
-                        }
-                        else//넉아웃
-                        {
-                            _Gauge += pc.Dmg;
-                            setOutTime();
-                            _Rigid.AddForce(pc._Power * _Gauge, ForceMode.Impulse);
-
-
-                            Debug.Log("아리스가 캡한테 맞는경우2");
-                        }
+                        stuntime = 0.2f;
+                        _Gauge += pc.Dmg;
+                        SetState(PlayerState.Stun);
+                        _Anim.TriggerStun();
                     }
-                    else
+                    else//넉아웃
                     {
-                        PlayerCtrller pc = other.transform.root.GetComponent<PlayerCtrller>();
-                        this.dir = -pc.dir;
-                        pc.HitRot();
-
-                        if (pc._Power.x == 0 && pc._Power.y == 0) //경직
-                        {
-                            stuntime = 0.2f;
-                            _Gauge += pc.Dmg;
-
-                            Debug.Log("캡이 아리스한테 맞는경우1");
-                        }
-                        else//넉아웃
-                        {
-                            _Gauge += pc.Dmg;
-                            setOutTime();
-                            _Rigid.AddForce(pc._Power * _Gauge, ForceMode.Impulse);
-
-                            Debug.Log("캡이 아리스한테 맞는경우2");
-                        }
+                        _Gauge += pc.Dmg;
+                        hittedPower = pc._Power * _Gauge;
+                        _IsKnockOut = true;
+                        setOutTime();
+                        SetState(PlayerState.KnockOut);
+                        _Anim.TriggerKnockOut();
                     }
+
 
 
                     _Eff.Hitted(other.transform.position, 1);
 
-                    Debug.Log("??");
                 }
 
             }
@@ -902,55 +933,36 @@ namespace nara
             {
                 if (other.gameObject.tag == "1PA")
                 {
-                    if (_Name == "Aries")
+
+
+                    PlayerCtrller pc = other.transform.root.GetComponent<PlayerCtrller>();
+                    dir = -pc.dir;
+                    pc.HitRot();
+                    if (pc._Power.x == 0 && pc._Power.y == 0) //경직
                     {
-                        PlayerCtrllercap pc = other.transform.root.GetComponent<PlayerCtrllercap>();
-                        dir = -pc.dir;
-                        pc.HitRot();
-                        if (pc._Power.x == 0 && pc._Power.y == 0) //경직
-                        {
-                            stuntime = 0.2f;
-                            _Gauge += pc.Dmg;
-
-                            Debug.Log("11111");
-                        }
-                        else//넉아웃
-                        {
-                            _Gauge += pc.Dmg;
-                            setOutTime();
-                            _Rigid.AddForce(pc._Power * _Gauge, ForceMode.Impulse);
-                            Debug.Log("222222");
-                        }
+                        stuntime = 0.2f;
+                        _Gauge += pc.Dmg;
+                        SetState(PlayerState.Stun);
+                        _Anim.TriggerStun();
                     }
-                    else
+                    else//넉아웃
                     {
-                        PlayerCtrller pc = other.transform.root.GetComponent<PlayerCtrller>();
-                        dir = -pc.dir;
-                        pc.HitRot();
-                        if (pc._Power.x == 0 && pc._Power.y == 0) //경직
-                        {
-                            stuntime = 0.2f;
-                            _Gauge += pc.Dmg;
+                        setinit();
+                        _Gauge += pc.Dmg;
+                        hittedPower = pc._Power * _Gauge;
+                        _IsKnockOut = true;
 
-                            Debug.Log("333333");
-                        }
-                        else//넉아웃
-                        {
-                            stuntime = 0.2f;
-                            _Gauge += pc.Dmg;
-                            setOutTime();
-                            
-                            Vector3 tt = new Vector3(-1*dir*pc._Power.x, pc._Power.y, 0);
-                            _Rigid.AddForce(tt * _Gauge );
-
-                            Debug.Log("44444444444");
-                        }
+                        setOutTime();
+                        SetState(PlayerState.KnockOut);
+                        _Anim.TriggerKnockOut();
+                        
                     }
+
                     _Eff.Hitted(other.transform.position, 1);
                 }
             }
         }
-       
+
         public void HitRot()
         {
 
@@ -1009,6 +1021,20 @@ namespace nara
             //else if (_Gauge <= 90f) outtime = 0.3f;
             //else if (_Gauge <= 150f) outtime = 0.4f;
             //else outtime = 0.5f;
+        }
+
+
+        void KnockOutMove()
+        {
+             // 알아서 찾으셈 
+            //Vector3 v = new Vector3(-dir*hittedPower.x, hittedPower.y, 0);
+            //_Rigid.AddForce(v * 0.01f, ForceMode.Force);
+
+
+            Vector3 v = new Vector3(-dir * hittedPower.x*30     , hittedPower.y*5, 0);
+            _Rigid.AddForce(v * 0.01f, ForceMode.Force);
+
+
         }
     }
 

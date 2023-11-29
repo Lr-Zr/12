@@ -67,7 +67,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 19
         messageOptions: 0
-      - time: 1
+      - time: 0.95652175
         functionName: EffectOff
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}

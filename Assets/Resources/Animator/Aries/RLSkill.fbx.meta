@@ -67,33 +67,33 @@ ModelImporter:
         floatParameter: 0
         intParameter: 15
         messageOptions: 0
-      - time: 0.18820608
-        functionName: onRLMove
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: aba1b158b6a106c48bf2a2887b0f0559, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.21774194
-        functionName: ActiveOn
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
-        floatParameter: 0
-        intParameter: 9
-        messageOptions: 0
-      - time: 0.21774194
+      - time: 0.02801862
         functionName: EffectOff
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
         floatParameter: 0
         intParameter: 15
         messageOptions: 0
-      - time: 0.21774194
+      - time: 0.041961014
+        functionName: onRLMove
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: aba1b158b6a106c48bf2a2887b0f0559, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.23750478
         functionName: EffectOn
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
         floatParameter: 0
         intParameter: 16
+        messageOptions: 0
+      - time: 0.34422415
+        functionName: ActiveOn
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
+        floatParameter: 0
+        intParameter: 9
         messageOptions: 0
       - time: 0.83225805
         functionName: ActiveOff

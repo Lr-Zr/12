@@ -73,8 +73,7 @@ namespace nara
                     _playerCtrller.Dmg = 12;
                     //hit수 3
                     break;
-
-
+                //
                 case 7://공중중립공격
                     _playerCtrller._Power = new Vector3(5, 40, 0);
                     _playerCtrller.Dmg = 4;
@@ -101,7 +100,7 @@ namespace nara
                     _playerCtrller.Dmg = 10;
                     break;
                 case 12://스킬아래3
-                    _playerCtrller._Power = new Vector3(50, 50, 0);
+                    _playerCtrller._Power = new Vector3(50, -50, 0);
                     _playerCtrller.Dmg = 16;
                     break;
                 case 13://스킬 좌우

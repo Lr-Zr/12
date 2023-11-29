@@ -75,7 +75,7 @@ namespace nara
                     _playerCtrller.Dmg = 20;
                     break;
                 case 10://DwSKill
-                    _playerCtrller._Power = new Vector3(0, 30, 0);
+                    _playerCtrller._Power = new Vector3(0, -30, 0);
                     _playerCtrller.Dmg = 15;
                     break;
                 case 11://NormalSkill

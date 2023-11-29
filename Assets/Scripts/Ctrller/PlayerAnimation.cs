@@ -51,6 +51,20 @@ namespace nara
         {
             _animator.SetTrigger("Skill");
 
+        
+        }
+        public void TriggerShield()
+        {
+            _animator.SetTrigger("Shield");
+        }
+        public void TriggerKnockOut()
+        {
+            _animator.SetTrigger("KnockOut");
+        }
+        public void TriggerStun()
+        {
+
+            _animator.SetTrigger("Stun");
         }
         public void TriggerReset()
         {
@@ -68,7 +82,8 @@ namespace nara
 
             _animator.SetBool("DwKey", isDwKey);
         }
-
+        
+        
     }
 
 }

@@ -467,7 +467,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 3ec0c7ddfc37c5848bb020e7fc8c0aaf, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -491,7 +491,7 @@ MonoBehaviour:
   playertype: 2
   _MoveSpeed: 10
   _JumpingPower: 13
-  _Gauge: 33
+  _Gauge: 70
   _Life: 3
   _SlideSpeed: 20
   _DownSpeed: 5
@@ -509,6 +509,12 @@ MonoBehaviour:
   _IsAttack: 0
   _IsSkill: 0
   _IsRunning: 0
+  _ECooldown: 0
+  kt1: 0.1
+  kt2: 0.2
+  kt3: 0.3
+  kt4: 0.4
+  kt5: 0.5
 --- !u!114 &1817789305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,6 +553,9 @@ MonoBehaviour:
   - {fileID: 1737387875744588960, guid: 939ca2c3a328fd148899a1c031cad9d5, type: 3}
   - {fileID: 5724093481334579524, guid: c7bfec779e24c214cb079c5372cafff2, type: 3}
   - {fileID: 512424923302614939, guid: e3deeb2d0a07d1c48b9cbe6fe5accad5, type: 3}
+  - {fileID: 871324411638548333, guid: cc75b5a111401ca458f5bdeb9e42e1a8, type: 3}
+  - {fileID: 1448022491086728, guid: caa89f56678b8be49aa5e29c86c481b3, type: 3}
+  _hit: {fileID: 5671061510711878566, guid: 5aae4657f98b2ef4ba323b4e42ca1656, type: 3}
 --- !u!114 &1817789310
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -76,7 +76,7 @@ public class PlayerGauge : MonoBehaviour
     }
     
 
-    void setGauge()
+    public void setGauge()
     {
         for (int i = 0; i < objs.Length; i++)
         {

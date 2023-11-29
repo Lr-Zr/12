@@ -35,7 +35,7 @@ namespace nara
             AirRLSkill,//21
 
 
-            Down,//22//다운
+            Sheild,//22방어
 
             End,
 
@@ -79,7 +79,8 @@ namespace nara
         SkDw2,//18
         SkNormal1,//19
         SkNormal2,//20
-            
+        Shield,//21
+        KnockOut,//22
         End,
 
     }

@@ -60,7 +60,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.12122496
+      - time: 0.12577042
         functionName: EffectOn
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
@@ -74,14 +74,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.4376374
+      - time: 0.4467283
         functionName: ActiveOn
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 4df47dccb4206db449a96e79a8590b16, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.43967834
+      - time: 0.4533147
         functionName: EffectOn
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: c7809e1529512d948bd1faaa5f778e45, type: 3}
@@ -104,6 +104,13 @@ ModelImporter:
         messageOptions: 0
       - time: 1
         functionName: setinit
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: aba1b158b6a106c48bf2a2887b0f0559, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.4533147
+        functionName: onUpMove
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: aba1b158b6a106c48bf2a2887b0f0559, type: 3}
         floatParameter: 0
