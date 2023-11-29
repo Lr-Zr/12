@@ -239,7 +239,10 @@ namespace nara
             {
                 float x = Vector3.Distance(_PrePos, _MovePos);
                 if (x < _Teemo)
+                {
                     _Rigid.AddForce(this.transform.forward * RLspeed, ForceMode.Force);
+                    Debug.Log("cap " + RLspeed);
+                }
             }
             if (_IsUpMove)
             {
@@ -680,8 +683,8 @@ namespace nara
                         if (_IsOnesec)//1초지난상태
                         {
                             //땅질주공격-
-                            SetState(PlayerState.RunAttack);
                             _Teemo = 2.0f;
+                            SetState(PlayerState.RunAttack);
                         }
                         else
                         {
@@ -741,6 +744,7 @@ namespace nara
                 if (_IsJump)//점프상태일때
                 {
                     //아래공격
+                    this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
 
                     _IsAirAtk = true;//이동이 멈춤
                     SetState(PlayerState.DwSkill);
@@ -769,11 +773,11 @@ namespace nara
                     if (_IsRunning)//달리는 상태
                     {
                         //공중전진공격
+                        _Teemo = 10f;
                         _IsAirAtk = true;//이동이 멈춤
                         this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
 
                         SetState(PlayerState.RLSkill);
-                        _Teemo = 10f;
                     }
                     else
                     {
@@ -788,9 +792,9 @@ namespace nara
                 {
                     if (_IsRunning)//달리는 상태
                     {
+                        _Teemo = 10f;
                         //땅전진공격
                         SetState(PlayerState.RLSkill);
-                        _Teemo = 10f;
                     }
                     else
                     {
@@ -818,17 +822,16 @@ namespace nara
             RaycastHit hit;
             Vector3 StartPos = transform.position;
             StartPos.y += 0.1f;
-            Debug.DrawRay(StartPos, this.transform.up * -0.2f, Color.green);
+            Debug.DrawRay(StartPos, this.transform.up * -0.15f, Color.green);
             LayerMask mask = LayerMask.GetMask("Floor");
-            if (Physics.Raycast(StartPos, this.transform.up * -1, out hit, 0.2f, mask))
+            if (Physics.Raycast(StartPos, this.transform.up * -1, out hit, 0.15f, mask))
             {
                 //&& _Floortime > 0.05
                 if (_State != PlayerState.Idle && _JumpTime > _JumpRestriction)
                 {
                     if (_IsJump)
                         _Eff.EffectPlay(Effect.Land);
-                    if (outtime < 0 && stuntime < 0)
-                        _Rigid.velocity = Vector3.zero;
+                    _Rigid.velocity = Vector3.zero;
                     _Floortime = 0.0f;
                     if (!_IsAttack && !_IsSkill && !_IsShield && stuntime < 0f && !_IsKnockOut)
                     {
@@ -836,11 +839,11 @@ namespace nara
                         _Anim.SetAnim(_State);
 
                         _IsJump = false;
+                        _Anim.SetIsJump(_IsJump);
                     }
                     _IsRunning = false;
                     _Anim.SetIsRunning(_IsRunning);
                     _IsDJump = false;
-                    _Anim.SetIsJump(_IsJump);
                     _Anim.SetIsDJump(_IsDJump);
 
 
@@ -862,7 +865,6 @@ namespace nara
         public void onUpMove()
         {
             _IsUpMove = true;
-            _MovePos = this.transform.position;
         }
 
         public void setinit()//초기화
@@ -874,6 +876,7 @@ namespace nara
             }
             else
             {
+                _Rigid.velocity = Vector3.zero;
                 _CantAttack = true;
                 _AttackTime = 0.05f;
 
@@ -914,6 +917,8 @@ namespace nara
                     }
                     else//넉아웃
                     {
+
+                        setinit();
                         _Gauge += pc.Dmg;
                         hittedPower = pc._Power * _Gauge;
                         _IsKnockOut = true;
@@ -966,7 +971,6 @@ namespace nara
         public void HitRot()
         {
 
-            Debug.Log(name + " hitted11");
             this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
 
         }
@@ -1031,7 +1035,7 @@ namespace nara
             //_Rigid.AddForce(v * 0.01f, ForceMode.Force);
 
 
-            Vector3 v = new Vector3(-dir * hittedPower.x*30     , hittedPower.y*5, 0);
+            Vector3 v = new Vector3(-dir * hittedPower.x*30, hittedPower.y*5, 0);
             _Rigid.AddForce(v * 0.01f, ForceMode.Force);
 
 

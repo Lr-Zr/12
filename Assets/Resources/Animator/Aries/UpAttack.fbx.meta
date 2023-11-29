@@ -109,13 +109,6 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.4533147
-        functionName: onUpMove
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: aba1b158b6a106c48bf2a2887b0f0559, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

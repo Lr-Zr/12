@@ -158,6 +158,13 @@ namespace nara
         [SerializeField]
         float kt5;
 
+
+
+
+
+
+
+
         Vector3 hittedPower;
 
         void Start()
@@ -221,7 +228,7 @@ namespace nara
                     _IsKnockOut = false;
                     _Rigid.velocity = Vector3.zero;
                     startime = 0;
-                   
+
                 }
                 KnockOutMove();
 
@@ -267,25 +274,30 @@ namespace nara
             {
                 float x = Vector3.Distance(_PrePos, _MovePos);
                 if (x < _Teemo)
+                {
+
                     _Rigid.AddForce(this.transform.forward * RLspeed, ForceMode.Force);
+                    Debug.Log("arries " + RLspeed);
+
+                }
             }
             if (_IsUpMove)
             {
                 _IsAirAtk = false;
                 _Rigid.AddForce(this.transform.up * Upspeed, ForceMode.Impulse);
                 _IsUpMove = false;
-                
+
                 Upspeed = 20.0f;
             }
             if (_IsDwMove)
             {
-                _Rigid.AddForce(this.transform.up *-10 , ForceMode.Impulse);
+                _Rigid.AddForce(this.transform.up * -10, ForceMode.Impulse);
                 _IsDwMove = false;
             }
 
 
-                //커맨드 키입력
-                _KUpTime -= Time.deltaTime;
+            //커맨드 키입력
+            _KUpTime -= Time.deltaTime;
             _KDwTime -= Time.deltaTime;
             _KQTime -= Time.deltaTime;
             _KWTime -= Time.deltaTime;
@@ -323,7 +335,7 @@ namespace nara
 
 
             //낙하상태 
-            if (_Rigid.velocity.y < -0.05f && !_IsAttack && !_IsSkill&& stuntime < 0f && !_IsKnockOut)//낙하
+            if (_Rigid.velocity.y < -0.05f && !_IsAttack && !_IsSkill && stuntime < 0f && !_IsKnockOut)//낙하
             {
                 SetState(PlayerState.Falling);
                 //_IsJump = true;
@@ -350,7 +362,7 @@ namespace nara
         }
         void OnKeyboard()
         {
-            if ((_IsKnockOut || _IsShield)||stuntime>=0f) return;
+            if ((_IsKnockOut || _IsShield) || stuntime >= 0f) return;
             if (playertype == 1)
             {
                 if (Input.GetKey(KeyCode.S))//조합기 하 및 하강 속도 향상
@@ -806,10 +818,10 @@ namespace nara
                     if (_IsRunning)//달리는 상태
                     {
                         //공중전진공격
+                        _Teemo = 10f;
                         _IsAirAtk = true;//이동이 멈춤
                         this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right * dir), 1f);
 
-                        _Teemo = 10f;
                         SetState(PlayerState.RLSkill);
                     }
                     else
@@ -865,7 +877,7 @@ namespace nara
                         _Eff.EffectPlay(Effect.Land);
                     _Rigid.velocity = Vector3.zero;
                     _Floortime = 0.0f;
-                    if (!_IsAttack && !_IsSkill && !_IsShield && stuntime<0f && !_IsKnockOut)
+                    if (!_IsAttack && !_IsSkill && !_IsShield && stuntime < 0f && !_IsKnockOut)
                     {
                         _State = PlayerState.Idle;
                         _Anim.SetAnim(_State);
@@ -912,6 +924,7 @@ namespace nara
             }
             else
             {
+                _Rigid.velocity = Vector3.zero;
                 _CantAttack = true;
                 _AttackTime = 0.05f;
 
@@ -986,6 +999,7 @@ namespace nara
                     }
                     else//넉아웃
                     {
+                        setinit();
                         _Gauge += pc.Dmg;
                         hittedPower = pc._Power * _Gauge;
                         _IsKnockOut = true;
@@ -1020,12 +1034,14 @@ namespace nara
 
                 this.transform.eulerAngles = new Vector3(0, -90f, 0);
                 //위치 넣기
-                this.tag = "1P";
 
+
+                this.tag = "1P";
                 _Cols.SetTag("1PA");
+
+
                 _objgauge = GameObject.Find("1pGauge");
                 _objgauge.transform.position = this.transform.position;
-
                 _objgauge.GetComponent<PlayerGauge>()._pType = playertype;
                 _objgauge.GetComponent<PlayerGauge>()._gauge = _Gauge;
 
